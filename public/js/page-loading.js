@@ -1,5 +1,5 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - Page Loading Js
+ * Title:   rwm - Travel, Tour Booking  - Page Loading Js
  * Author:  http://themeforest.net/user/soaptheme
  */
 
@@ -23,7 +23,7 @@ if (typeof Pace != "undefined") {
                                                 '<div class="loading-page-wrapper">' +
                                                     '<div class="container">' +
                                                             '<h1 class="logo block">' +
-                                                                '<a title="Travelo" href="#">' +
+                                                                '<a title="rwm" href="#">' +
                                                                     '<img alt="" src="images/logo2.png">' +
                                                                 '</a>' +
                                                             '</h1>' +

@@ -1,5 +1,5 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - Custom Javascript file
+ * Title:   rwm - Travel, Tour Booking  - Custom Javascript file
  * Author:  http://themeforest.net/user/soaptheme
  */
 

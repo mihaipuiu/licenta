@@ -1,5 +1,5 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - RTL CSS file
+ * Title:   rwm - Travel, Tour Booking  - RTL CSS file
  * Author:  http://themeforest.net/user/soaptheme
  */
 .pull-right {
@@ -298,30 +298,30 @@ blockquote.style1 > span.triangle:before {
 	margin-right: auto;
 }
 
-.travelo-box.twitter-box .twitter-holder > ul li {
+.rwm-box.twitter-box .twitter-holder > ul li {
     padding: 15px 40px 15px 0;
 }
 
-.travelo-box.twitter-box .twitter-holder > ul li:before {
+.rwm-box.twitter-box .twitter-holder > ul li:before {
     right: 0;
 	left: auto;
 }
 
-.travelo-box.book-with-us-box li, .travelo-box.contact-us-box .contact-address li {
+.rwm-box.book-with-us-box li, .rwm-box.contact-us-box .contact-address li {
     padding: 10px 40px 10px 0;
 }
 
-.travelo-box.book-with-us-box li > i, .travelo-box.contact-us-box .contact-address li > i {
+.rwm-box.book-with-us-box li > i, .rwm-box.contact-us-box .contact-address li > i {
     right: 0;
 	left: auto;
 }
 
-.travelo-box.contact-us-box .contact-address li {
+.rwm-box.contact-us-box .contact-address li {
     padding-right: 50px;
 	padding-left: 0;
 }
 
-.travelo-box.newsletter-box button {
+.rwm-box.newsletter-box button {
     margin-left: 0 !important;
 	margin-right: auto;
 }
@@ -707,18 +707,6 @@ ul.check-circle li:before {
     margin: 0 0 10px 10px;
 }
 
-.image-style.style1:before {
-    left: -60px;
-	right: auto;
-}
-
-.image-style.style1:after {
-    left: -60px;
-    border-left: 60px solid transparent;
-	right: auto;
-	border-right: none;
-}
-
 .image-style.style2 .image-block {
     padding-right: 50px;
 	padding-left: 0;
@@ -728,114 +716,11 @@ ul.check-circle li:before {
     text-align: right;
 }
 
-.image-box.style7 .opacity-wrapper, .image-box.style8 .opacity-wrapper, .image-box.style12 .opacity-wrapper {
-    right: 0;
-	left: auto;
-}
-
-.image-box.style2 figure {
+.icon-box.style_rwm > i, .icon-box.style7 > i {
     float: right;
 }
 
-.image-box.style2 .details {
-    padding: 20px 270px 10px 20px;
-}
-
-.image-box.style4 .details .box-title {
-    float: right;
-}
-
-.image-box.style4 .details .goto-detail {
-    float: left;
-}
-
-.image-box.style5 figure figcaption, .image-box.style11 figure figcaption {
-    right: 0;
-	left: auto;
-}
-
-.image-box.style5 figure a:before, .image-box.style11 figure a:before {
-    right: 0;
-    left: 0;
-}
-
-.image-box.style8 figure {
-    float: right;
-}
-
-.image-box.style8 .details {
-    float: right;
-}
-
-.image-box.style10 .details a.button {
-    float: left;
-}
-
-.image-box.style12 figure {
-    margin-left: 30px;
-	margin-right: auto;
-}
-
-.image-box.style12 .details {
-    border-left: 1px solid #f5f5f5;
-    padding: 12px 25px 10px 20px;
-	border-right: none;
-}
-
-.image-box.style13 figure {
-    float: right;
-    margin-left: 15px;
-	margin-right: auto;
-}
-
-.image-box.style13 .action {
-    float: left;
-}
-
-.image-box.style14 figure {
-    float: right;
-}
-
-.image-box.style14 .details {
-    margin-right: 63px;
-	margin-left: auto;
-}
-
-.image-box.style14 .price {
-    text-align: right;
-}
-
-.icon-box.style1 > i {
-    float: right;
-    margin-left: 15px;
-	margin-right: auto;
-}
-
-.icon-box.style2 > i {
-    margin-left: 10px;
-	margin-right: auto;
-}
-
-.icon-box.style3 .numbers i {
-    margin-left: 10px;
-	margin-right: auto;
-}
-
-.icon-box.style5 > i {
-    float: right;
-    margin-left: 15px;
-	margin-right: auto;
-}
-
-.icon-box.style5 .description {
-    padding: 14px 0 0 15px;
-}
-
-.icon-box.style6 > i, .icon-box.style7 > i {
-    float: right;
-}
-
-.icon-box.style6 .description, .icon-box.style7 .description {
+.icon-box.style_rwm .description, .icon-box.style7 .description {
     padding-right: 70px;
 	padding-left: 0;
 }
@@ -1428,19 +1313,19 @@ ul.check-circle li:before {
     padding-left: 20px;
 }
 
-#header.style6 .topnav {
+#header.style_rwm .topnav {
     float: right;
     margin: 0 20px 22px 0;
 }
 
-#header.style6 #main-menu > ul.menu > li {
+#header.style_rwm #main-menu > ul.menu > li {
     padding-right: 0;
     padding-left: 0px;
     margin-left: 2px;
 	margin-right: auto;
 }
 
-#header.style6 #main-menu > ul.menu > li > a {
+#header.style_rwm #main-menu > ul.menu > li > a {
     padding-right: 20px;
     padding-left: 20px;
 }
@@ -1625,33 +1510,33 @@ ul.menu.mini li a {
 	right: auto;
 }
 
-.travelo-signup-box .login-social .button, .travelo-login-box .login-social .button {
+.rwm-signup-box .login-social .button, .rwm-login-box .login-social .button {
     text-align: right;
     padding-right: 20px;
 	padding-left: 0;
 }
 
-.travelo-signup-box .login-social .button i, .travelo-login-box .login-social .button i {
+.rwm-signup-box .login-social .button i, .rwm-login-box .login-social .button i {
     margin-left: 36px;
     float: right;
 	margin-right: auto;
 }
 
-.travelo-signup-box .seperator label, .travelo-login-box .seperator label {
+.rwm-signup-box .seperator label, .rwm-login-box .seperator label {
     right: 50%;
 	left: auto;
 }
 
-.travelo-signup-box .form-group, .travelo-login-box .form-group {
+.rwm-signup-box .form-group, .rwm-login-box .form-group {
     text-align: right;
 }
 
-.travelo-signup-box .signup-email i {
+.rwm-signup-box .signup-email i {
     margin-left: 4px;
 	margin-right: auto;
 }
 
-.travelo-login-box .checkbox-inline {
+.rwm-login-box .checkbox-inline {
     margin-right: 0;
 	margin-left: auto;
 }
@@ -1681,128 +1566,28 @@ ul.menu.mini li a {
     text-align: left;
 }
 
-.page-title-container.style1 button {
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-.page-title-container.style1 .container:before {
-    right: 0;
-    border-right: 6px solid transparent;
-    border-left: 6px solid transparent;
-	left: auto;
-}
-
-.page-title-container.style2{
-	text-align:left;
-}
-
-.page-title-container.style2 .page-title {
+.page-title-container.style_rwm .page-title {
     float: right;
-}
-
-.page-title-container.style2 .breadcrumbs {
-    float: left;
-}
-
-.page-title-container.style2 .page-title:after{
-	left:-100px;
-	right: auto;
-}
-
-.page-title-container.style2 .breadcrumbs:before{
-	right:-135px;
-	left: auto;
-}
-
-.page-title-container.style4 {
-    text-align: left;
-}
-
-.page-title-container.style4 .page-title {
-    float: right;
-    padding-left: 20px;
-	padding-right: 0;
-}
-
-.page-title-container.style4 .page-title:after {
-    left: -20px;
-    border-right: 20px solid #fdb714;
-	right: auto;
-	border-left: none;
-}
-
-.page-title-container.style4 .page-title i {
-    float: right;
-    margin-left: 20px;
+    margin-left: 25px;
 	margin-right: auto;
 }
 
-.page-title-container.style4 .page-title .entry-title {
+.page-title-container.style_rwm .breadcrumbs {
     float: right;
 }
 
-.page-title-container.style4 .container:before {
-    left: -100%;
-	right: auto;
-}
-
-.page-title-container.style4 .breadcrumbs {
-    float: left;
-}
-
-.page-title-container.style4 .breadcrumbs li:before {
+.page-title-container.style_rwm .breadcrumbs li:before {
     margin-left: 8px;
 	margin-right: auto;
 }
 
-.page-title-container.style5 .page-title {
+.page-title-container.style_rwm .breadcrumbs:before {
     float: right;
     margin-left: 25px;
 	margin-right: auto;
 }
 
-.page-title-container.style5 .breadcrumbs {
-    float: right;
-}
-
-.page-title-container.style5 .breadcrumbs li:before {
-    margin-left: 8px;
-	margin-right: auto;
-}
-
-.page-title-container.style5 .breadcrumbs:before {
-    float: right;
-    margin-left: 25px;
-	margin-right: auto;
-}
-
-.page-title-container.style5 .social-icons {
-    float: left;
-}
-
-.page-title-container.style6 .page-title {
-    float: right;
-    margin-left: 25px;
-	margin-right: auto;
-}
-
-.page-title-container.style6 .breadcrumbs {
-    float: right;
-}
-
-.page-title-container.style6 .breadcrumbs li:before {
-    margin-left: 8px;
-	margin-right: auto;
-}
-
-.page-title-container.style6 .breadcrumbs:before {
-    float: right;
-    margin-left: 25px;
-	margin-right: auto;
-}
-
-.page-title-container.style6 .search-box {
+.page-title-container.style_rwm .search-box {
     float: left;
 }
 
@@ -2621,12 +2406,12 @@ ul.search-tabs li {
 	right: auto;
 }
 
-#footer.style6 > .footer-wrapper > .container:first-child:before {
+#footer.style_rwm > .footer-wrapper > .container:first-child:before {
 	right:0;
 	left: auto;
 }
 
-#footer.style6 > .footer-wrapper > .container:first-child:after {
+#footer.style_rwm > .footer-wrapper > .container:first-child:after {
 	left:0;
 	right: auto;
 }
@@ -2639,12 +2424,12 @@ ul.search-tabs li {
     text-align: right;
 }
 
-.travelo-process .process {
+.rwm-process .process {
     margin-right: -32.4px;
     margin-left: -32.4px;
 }
 
-.travelo-process .process.first {
+.rwm-process .process.first {
     left: 85.3554%;
     margin-right: 0;
     text-align: left;
@@ -2652,12 +2437,12 @@ ul.search-tabs li {
 	margin-left: auto;
 }
 
-.travelo-process .process.first .details {
+.rwm-process .process.first .details {
     padding-left: 8%;
     padding-right: 0;
 }
 
-.travelo-process .process.second {
+.rwm-process .process.second {
     right: 85.3554%;
     margin-left: 0;
     text-align: right;
@@ -2665,12 +2450,12 @@ ul.search-tabs li {
 	margin-right: auto;
 }
 
-.travelo-process .process.second .details {
+.rwm-process .process.second .details {
     padding-right: 8%;
     padding-left: 0;
 }
 
-.travelo-process .process.third {
+.rwm-process .process.third {
     right: 85.3554%;
     margin-left: 0;
     text-align: right;
@@ -2678,12 +2463,12 @@ ul.search-tabs li {
 	margin-right: auto;
 }
 
-.travelo-process .process.third .details {
+.rwm-process .process.third .details {
     padding-right: 8%;
     padding-left: 0;
 }
 
-.travelo-process .process.forth {
+.rwm-process .process.forth {
     left: 85.3554%;
     margin-right: 0;
     text-align: left;
@@ -2691,7 +2476,7 @@ ul.search-tabs li {
 	margin-left: auto;
 }
 
-.travelo-process .process.forth .details {
+.rwm-process .process.forth .details {
     padding-left: 8%;
     padding-right: 0;
 }
@@ -3014,7 +2799,7 @@ ul.search-tabs li {
 		float: left !important;
 	}
 
-	.travelo-policies ul.tabs.full-width > li a {
+	.rwm-policies ul.tabs.full-width > li a {
 		padding-right: 20px !important;
 		text-align: right;
 		padding-left: 0;

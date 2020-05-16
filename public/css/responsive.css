@@ -1,5 +1,5 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - Responsive CSS file
+ * Title:   rwm - Travel, Tour Booking  - Responsive CSS file
  * Author:  http://themeforest.net/user/soaptheme
  */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -413,11 +413,11 @@
       .hidden-table-sm.table-wrapper > .table-cell.pull-right, .hidden-table-sm.table-wrapper > .table-row > .table-cell.pull-right {
         float: right !important; }
 
-  .travelo-process .process {
+  .rwm-process .process {
     margin-top: -27px;
     margin-left: -27px;
     margin-right: -27px; }
-    .travelo-process .process .icon-wrapper i {
+    .rwm-process .process .icon-wrapper i {
       font-size: 30px; }
 
   .world-map-section {
@@ -440,14 +440,14 @@
     .promo-box input.input-text {
       height: 34px; }
 
-  .travelo-policies ul.tabs li {
+  .rwm-policies ul.tabs li {
     float: none; }
-  .travelo-policies ul.tabs.full-width {
+  .rwm-policies ul.tabs.full-width {
     display: block; }
-    .travelo-policies ul.tabs.full-width > li {
+    .rwm-policies ul.tabs.full-width > li {
       display: block;
       width: auto; }
-      .travelo-policies ul.tabs.full-width > li a {
+      .rwm-policies ul.tabs.full-width > li a {
         padding-left: 20px !important;
         text-align: left; }
 
@@ -540,11 +540,11 @@
   .image-box-style.style2.innerstyle .details {
     padding: 20px 0 0; }
 
-  .travelo-process .process {
+  .rwm-process .process {
     margin-top: -18px;
     margin-left: -18px;
     margin-right: -18px; }
-    .travelo-process .process .icon-wrapper i {
+    .rwm-process .process .icon-wrapper i {
       font-size: 20px; }
 
   #content.image-bg2 #main {

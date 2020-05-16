@@ -1,4 +1,4 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - IE8 Javascript
+ * Title:   rwm - Travel, Tour Booking  - IE8 Javascript
  * Author:  http://themeforest.net/user/soaptheme
  */

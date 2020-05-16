@@ -1,5 +1,5 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - Main Javascript file
+ * Title:   rwm - Travel, Tour Booking  - Main Javascript file
  * Author:  http://themeforest.net/user/soaptheme
  */
 
@@ -302,7 +302,7 @@ tjq("body").on("click", "a.popup-gallery", function(e) {
     return false;
 });
 
-function changeTraveloElementUI() {
+function changerwmElementUI() {
     // change UI of select box
     tjq(".selector select").each(function() {
         var obj = tjq(this);
@@ -427,7 +427,7 @@ function changeTraveloElementUI() {
 }
 
 tjq(document).ready(function() {
-    changeTraveloElementUI();
+    changerwmElementUI();
 
 	if ( stGlobals.isMobile ) {
         tjq("body").addClass("is-mobile");
@@ -634,7 +634,7 @@ tjq(window).load(function() {
     if (enableChaser == 1 && tjq('#content').length > 0 && tjq('#main-menu ul.menu').length > 0) {
         var forchBottom;
         var chaser = tjq('#main-menu ul.menu').clone().hide().appendTo(document.body).wrap("<div class='chaser hidden-mobile'><div class='container'></div></div>");
-        tjq('<h1 class="logo navbar-brand"><a title="Travelo - home" href="index.html"><img alt="" src="images/logo.png"></a></h1>').insertBefore('.chaser .menu');
+        tjq('<h1 class="logo navbar-brand"><a title="rwm - home" href="index.html"><img alt="" src="images/logo.png"></a></h1>').insertBefore('.chaser .menu');
         var forch = tjq('#content').first();
         forchBottom = forch.offset().top + 2;
         tjq(window).on('scroll', function () {
@@ -974,12 +974,12 @@ tjq(window).load(function() {
     });
 
     // activate tab
-	var traveloLocationHash = window.location.hash;
-	if (traveloLocationHash != "") {
-		traveloLocationHash = escape(traveloLocationHash.replace("#", ""));
-		if (tjq('a[href="#' + traveloLocationHash + '"]').length > 0) {
+	var rwmLocationHash = window.location.hash;
+	if (rwmLocationHash != "") {
+		rwmLocationHash = escape(rwmLocationHash.replace("#", ""));
+		if (tjq('a[href="#' + rwmLocationHash + '"]').length > 0) {
 			setTimeout(function() {
-				tjq('a[href="#' + traveloLocationHash + '"]').tab('show');
+				tjq('a[href="#' + rwmLocationHash + '"]').tab('show');
 			}, 100);
 		}
 	}
@@ -1190,11 +1190,11 @@ function fixPositionMegaMenu(parentObj) {
 fixPositionMegaMenu();
 
 // login box
-tjq("body").on("click", ".travelo-signup-box .signup-email", function(e) {
+tjq("body").on("click", ".rwm-signup-box .signup-email", function(e) {
     e.preventDefault();
-    tjq(this).closest(".travelo-signup-box").find(".simple-signup").hide();
-    tjq(this).closest(".travelo-signup-box").find(".email-signup").show();
-    tjq(this).closest(".travelo-signup-box").find(".email-signup").find(".input-text").eq(0).focus();
+    tjq(this).closest(".rwm-signup-box").find(".simple-signup").hide();
+    tjq(this).closest(".rwm-signup-box").find(".email-signup").show();
+    tjq(this).closest(".rwm-signup-box").find(".email-signup").find(".input-text").eq(0).focus();
 });
 
 // THIS SCRIPT DETECTS THE ACTIVE ELEMENT AND ADDS ACTIVE CLASS (This should be removed in the php version.)

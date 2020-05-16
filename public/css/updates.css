@@ -31,7 +31,6 @@
 .checkbox label, .checkbox.label { padding-left: 0; }
 
 /* Version 2.8.1 */
-#footer.style2 .footer-wrapper > .container:first-child:before, #footer.style4 > .footer-wrapper > .container:first-child:after, #footer.style5 > .footer-wrapper > .container:first-child:before { max-width: 100%; background-size: cover; }
 
 .image-style.style2 { overflow: hidden; }
 

@@ -1,5 +1,5 @@
 /*
- * Title:   Travelo - Travel, Tour Booking HTML5 Template - Calendar Js used in the detailed pages
+ * Title:   rwm - Travel, Tour Booking  - Calendar Js used in the detailed pages
  * Author:  http://themeforest.net/user/soaptheme
  */
 
