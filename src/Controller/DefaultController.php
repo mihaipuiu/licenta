@@ -8,12 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/{slug}")
+     * @Route("/")
      */
-    public function homepage($slug)
+    public function homepage()
     {
-        return $this->render('default/homepage.html.twig', [
-            'slug' => ucwords(str_replace('-', ' ', $slug))
-        ]);
+        return $this->render('homepage/homepage.html.twig');
     }
 }
