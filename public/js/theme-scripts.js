@@ -1,8 +1,3 @@
-/*
- * Title:   rwm - Travel, Tour Booking  - Main Javascript file
- * Author:  http://themeforest.net/user/soaptheme
- */
-
 var stGlobals = {};
 stGlobals.isMobile = (/(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|windows phone)/.test(navigator.userAgent));
 stGlobals.isMobileWebkit = /WebKit/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent);
@@ -391,7 +386,6 @@ function changerwmElementUI() {
         }
         tjq(this).datepicker({
             showOn: 'button',
-            buttonImage: 'images/icon/blank.png',
             buttonText: '',
             buttonImageOnly: true,
             changeYear: false,
@@ -634,7 +628,7 @@ tjq(window).load(function() {
     if (enableChaser == 1 && tjq('#content').length > 0 && tjq('#main-menu ul.menu').length > 0) {
         var forchBottom;
         var chaser = tjq('#main-menu ul.menu').clone().hide().appendTo(document.body).wrap("<div class='chaser hidden-mobile'><div class='container'></div></div>");
-        tjq('<h1 class="logo navbar-brand"><a title="rwm - home" href="index.html"><img alt="" src="images/logo.png"></a></h1>').insertBefore('.chaser .menu');
+        tjq('#top_nav_bar').insertBefore('.chaser .menu');
         var forch = tjq('#content').first();
         forchBottom = forch.offset().top + 2;
         tjq(window).on('scroll', function () {

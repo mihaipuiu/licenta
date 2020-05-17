@@ -1,12 +1,9 @@
-/* Title:   Updates Style File Author:  http://themeforest.net/user/soaptheme  */
-/* Version 2.6.2 (9/7/2015) */
 @media (max-width: 767px) { #booking .booking-info .info { clear: both; } }
 @media (max-width: 480px) { #booking .booking-info { padding-top: 20px; }
   #booking .booking-info div.date { float: none; }
   #profile .personal-details figure { width: auto; }
   #booking .booking-info .info { float: none; width: auto; margin-top: 10px; }
   #booking .booking-info .status { float: none; margin-bottom: 15px; } }
-/* Version 2.6.3 */
 .dashboard.style1 #content, .dashboard.style2 #content { -webkit-backface-visibility: visible; }
 
 .search-box-wrapper.style1 .search-box:after { content: ""; display: table; clear: both; }
@@ -21,7 +18,6 @@
 
 .search-box, #slideshow .tp-rightarrow, #slideshow .tp-leftarrow { z-index: 98; }
 
-/* Version 2.8 */
 .style-changer#style-changer.opened { left: 0; }
 
 .checkbox-inline, .radio-inline { padding-left: 0; }
@@ -29,8 +25,6 @@
 .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] { margin: 0 7px 0 0; }
 
 .checkbox label, .checkbox.label { padding-left: 0; }
-
-/* Version 2.8.1 */
 
 .image-style.style2 { overflow: hidden; }
 

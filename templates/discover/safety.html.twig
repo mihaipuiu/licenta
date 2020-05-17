@@ -1,0 +1,18 @@
+{% extends 'base/base.html.twig' %}
+{% block content %}
+    <h1>25 Important Travel Safety Tips Everyone Should Know</h1>
+    <h3>Top Travel Safety Tips For 2019</h3>
+    {% for safetyTip in safetyTips %}
+    <div class="travel-story-container box">
+        <div class="travel-story-content">
+{#            <div class="avatar">#}
+{#                <img src="http://placehold.it/90x90" width="90" height="90" alt="">#}
+{#            </div>#}
+            <div class="description">
+                <h4 class="skin-color">{{ safetyTip.title }}</h4>
+                <p>{{ safetyTip.description|nl2br }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,8 +1,3 @@
-/*
- * Title:   rwm - Travel, Tour Booking  - Booking Javascript file
- * Author:  http://themeforest.net/user/soaptheme
- */
-
 tjq(document).ready(function($) {
     $("form.booking-form").submit(function(e) {
         e.preventDefault();

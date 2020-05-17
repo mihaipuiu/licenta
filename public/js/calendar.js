@@ -1,8 +1,3 @@
-/*
- * Title:   rwm - Travel, Tour Booking  - Calendar Js used in the detailed pages
- * Author:  http://themeforest.net/user/soaptheme
- */
-
 function Calendar() {
     this.html = "";
 }
