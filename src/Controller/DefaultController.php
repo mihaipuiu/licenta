@@ -18,4 +18,12 @@ class DefaultController extends AbstractController
             'subTitle' => 'Home'
         ]);
     }
+
+    /**
+     * @Route(path="slideshow/popup", name="slideshow_popup")
+     */
+    public function slideshowPopup()
+    {
+        return $this->render('slideshow/slideshow-popup.html.twig');
+    }
 }

@@ -45,67 +45,27 @@
                                 <a href="{{ path('index') }}">Home</a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="hotel-{{ path('index') }}">Hotels</a>
-                                <ul>
-                                    <li><a href="hotel-{{ path('index') }}">Home Hotels</a></li>
-                                    <li><a href="hotel-booking.html">Booking</a></li>
-                                    <li><a href="hotel-thankyou.html">Thank You</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children megamenu-menu">
-                                <a href="#">Pages</a>
-                                <div class="megamenu-wrapper container" data-items-per-column="8">
-                                    <div class="megamenu-holder">
-                                        <ul class="megamenu">
-                                            <li class="menu-item-has-children">
-                                                <a href="#">Standard Pages</a>
-                                                <ul class="clearfix">
-                                                    <li><a href="pages-aboutus1.html">About Us</a></li>
-                                                    <li><a href="pages-services1.html">Services</a></li>
-                                                    <li><a href="pages-photogallery-fullview.html">Gallery Read</a></li>
-                                                    <li><a href="pages-contactus.html">Contact Us</a></li>
-                                                    <li><a href="{{ path('discover_policy') }}">Runaway With Me Policies</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">Extra Pages</a>
-                                                <ul class="clearfix">
-                                                    <li><a href="extra-pages-hotdeals.html">Hot Deals</a></li>
-                                                    <li><a href="extra-pages-before-you-fly.html">Before You Fly</a></li>
-                                                    <li><a href="extra-pages-inflight-experience.html">Inflight Experience</a></li>
-                                                    <li><a href="extra-pages-things-todo1.html">Things To Do</a></li>
-                                                    <li><a href="extra-pages-travel-essentials.html">Travel Essentials</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">Special Pages</a>
-                                                <ul class="clearfix">
-                                                    <li><a href="pages-coming-soon.html">Coming Soon</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <a href="{{ path('hotels_list', {'viewType':'list'}) }}">Hotels</a>
                             </li>
                         </ul>
                     </nav>
                     <ul class="quick-menu pull-right clearfix">
-                        <li class="ribbon">
-                            <a href="#">English</a>
-                            <ul class="menu mini">
-                                <li class="active"><a href="#" title="English">English</a></li>
-                                <li><a href="#" title="Romana">Romana</a></li>
-                            </ul>
-                        </li>
-                        <li class="ribbon currency">
-                            <a href="#" title="">USD</a>
-                            <ul class="menu mini">
-                                <li class="active"><a href="#" title="RON">RON</a></li>
-                                <li><a href="#" title="EUR">EUR</a></li>
-                                <li><a href="#" title="USD">USD</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">ACCOUNT</a></li>
+{#                        <li class="ribbon">#}
+{#                            <a href="#">English</a>#}
+{#                            <ul class="menu mini">#}
+{#                                <li class="active"><a href="#" title="English">English</a></li>#}
+{#                                <li><a href="#" title="Romana">Romana</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                        <li class="ribbon currency">#}
+{#                            <a href="#" title="">USD</a>#}
+{#                            <ul class="menu mini">#}
+{#                                <li class="active"><a href="#" title="RON">RON</a></li>#}
+{#                                <li><a href="#" title="EUR">EUR</a></li>#}
+{#                                <li><a href="#" title="USD">USD</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                        <li><a href="#">ACCOUNT</a></li>#}
                         <li><a href="#rwm-signup" class="soap-popupbox">SIGNUP</a></li>
                         <li><a href="#rwm-login" class="soap-popupbox">LOGIN</a></li>
                     </ul>
@@ -160,66 +120,28 @@
                     <ul id="mobile-primary-menu" class="menu">
                         <li>
                             <a href="{{ path('index') }}">Home</a>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="hotel-{{ path('index') }}">Hotels</a>
-                            <ul>
-                                <li><a href="hotel-{{ path('index') }}">Home Hotels</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">Pages</a>
-                            <ul>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Standard Pages</a>
-                                    <ul>
-                                        <li><a href="pages-aboutus1.html">About Us</a></li>
-                                        <li><a href="pages-services1.html">Services</a></li>
-                                        <li><a href="pages-photogallery-fullview.html">Gallery Read</a></li>
-                                        <li><a href="pages-contactus.html">Contact Us</a></li>
-                                        <li><a href="{{ path('discover_policy') }}">Runaway With Me Policies</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Extra Pages</a>
-                                    <ul>
-                                        <li><a href="extra-pages-hotdeals.html">Hot Deals</a></li>
-                                        <li><a href="extra-pages-before-you-fly.html">Before You Fly</a></li>
-                                        <li><a href="extra-pages-inflight-experience.html">Inflight Experience</a></li>
-                                        <li><a href="extra-pages-things-todo1.html">Things To Do</a></li>
-                                        <li><a href="extra-pages-travel-essentials.html">Travel Essentials</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Special Pages</a>
-                                    <ul>
-                                        <li><a href="pages-404-1.html">404 Page 1</a></li>
-
-                                    </ul>
-                                </li>
-                            </ul>
+                            <a href="{{ path('hotels_list', {'viewType':'list'}) }}">Hotels</a>
                         </li>
                     </ul>
-
                     <ul class="mobile-topnav container">
-                        <li><a href="#">MY ACCOUNT</a></li>
-                        <li class="ribbon language menu-color-skin">
-                            <a href="#" data-toggle="collapse">ENGLISH</a>
-                            <ul class="menu mini">
-                                <li class="active"><a href="#" title="English">English</a></li>
-                                <li><a href="#" title="Romana">Romana</a></li>
-                            </ul>
-                        </li>
+{#                        <li><a href="#">MY ACCOUNT</a></li>#}
+{#                        <li class="ribbon language menu-color-skin">#}
+{#                            <a href="#" data-toggle="collapse">ENGLISH</a>#}
+{#                            <ul class="menu mini">#}
+{#                                <li class="active"><a href="#" title="English">English</a></li>#}
+{#                                <li><a href="#" title="Romana">Romana</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
                         <li><a href="#rwm-login" class="soap-popupbox">LOGIN</a></li>
                         <li><a href="#rwm-signup" class="soap-popupbox">SIGNUP</a></li>
-                        <li class="ribbon currency menu-color-skin">
-                            <a href="#">RON</a>
-                            <ul class="menu mini">
-                                <li class="active"><a href="#" title="RON">RON</a></li>
-                                <li><a href="#" title="EUR">EUR</a></li>
-                                <li><a href="#" title="USD">USD</a></li>
-                            </ul>
-                        </li>
+{#                        <li class="ribbon currency menu-color-skin">#}
+{#                            <a href="#">RON</a>#}
+{#                            <ul class="menu mini">#}
+{#                                <li class="active"><a href="#" title="RON">RON</a></li>#}
+{#                                <li><a href="#" title="EUR">EUR</a></li>#}
+{#                                <li><a href="#" title="USD">USD</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
                     </ul>
 
                 </nav>
@@ -323,7 +245,8 @@
                             <h2>Discover</h2>
                             <ul class="discover triangle hover row">
                                 <li class="col-xs-6"><a href="{{ path('discover_safety') }}">Safety</a></li>
-                                <li class="col-xs-6"><a href="#">About</a></li>
+                                <li class="col-xs-6"><a href="{{ path('discover_about') }}">About</a></li>
+                                <li class="col-xs-6"><a href="{{ path('discover_contact') }}">Contact</a></li>
                                 <li class="col-xs-6"><a href="{{ path('discover_policy') }}">Policies</a></li>
                             </ul>
                         </div>

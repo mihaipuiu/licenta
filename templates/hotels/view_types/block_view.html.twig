@@ -1,0 +1,35 @@
+{% extends 'hotels/hotels_list.html.twig' %}
+{% block hotels_list_view %}
+    <div class="hotel-list">
+        <div class="row image-box listing-style2">
+            <div class="col-sms-6 col-sm-6 col-md-4">
+                <article class="box">
+                    <figure>
+                        <a href="{{ path('slideshow_popup') }}" title="" class="hover-effect popup-gallery"><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></a>
+                    </figure>
+                    <div class="details">
+                        <a title="View all" href="{{ path('hotel_detailed') }}" class="pull-right button uppercase">select</a>
+                        <h4 class="box-title">Hotel Hilton</h4>
+                        <label class="price-wrapper">
+                            <span class="price-per-unit">$620</span>avg/night
+                        </label>
+                    </div>
+                </article>
+            </div>
+            <div class="col-sms-6 col-sm-6 col-md-4">
+                <article class="box">
+                    <figure>
+                        <a href="{{ path('slideshow_popup') }}" title="" class="hover-effect popup-gallery"><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></a>
+                    </figure>
+                    <div class="details">
+                        <a title="View all" href="{{ path('hotel_detailed') }}" class="pull-right button uppercase">select</a>
+                        <h4 class="box-title">Forte Do Vale</h4>
+                        <label class="price-wrapper">
+                            <span class="price-per-unit">$120</span>avg/night
+                        </label>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}

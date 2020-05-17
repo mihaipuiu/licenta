@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,6 +53,26 @@ class DiscoverController extends AbstractController
     {
         return $this->render('discover/policy.html.twig',  [
             'subTitle' => 'Policy'
+        ]);
+    }
+
+    /**
+     * @Route(path="discover/about", name="discover_about")
+     */
+    public function about()
+    {
+        return $this->render('discover/about.html.twig',  [
+            'subTitle' => 'About'
+        ]);
+    }
+
+    /**
+     * @Route(path="discover/contact", name="discover_contact")
+     */
+    public function contact()
+    {
+        return $this->render('discover/contact.html.twig',  [
+            'subTitle' => 'Contact'
         ]);
     }
 }
