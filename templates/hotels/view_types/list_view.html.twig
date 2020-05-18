@@ -1,67 +1,38 @@
 {% extends 'hotels/hotels_list.html.twig' %}
 {% block hotels_list_view %}
     <div class="hotel-list listing-style3 hotel">
-        <article class="box">
-            <figure class="col-sm-5 col-md-4">
-                <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-            </figure>
-            <div class="details col-sm-7 col-md-8">
-                <div>
+        {% for hotel in hotels %}
+            <article class="box">
+                <figure class="col-sm-5 col-md-4">
+                    <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
+                </figure>
+                <div class="details col-sm-7 col-md-8">
                     <div>
-                        <h4 class="box-title">Hotel Hilton and Resorts<small><i class="soap-icon-departure yellow-color"></i> Bastille, Paris france</small></h4>
-                        <div class="amenities">
-                            <i class="soap-icon-wifi circle"></i>
-                            <i class="soap-icon-fitnessfacility circle"></i>
-                            <i class="soap-icon-fork circle"></i>
-                            <i class="soap-icon-television circle"></i>
+                        <div>
+                            <h4 class="box-title">{{ hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ hotel.city.name }}, {{ hotel.city.country.name }}</small></h4>
+                            <div class="amenities">
+                                <i class="soap-icon-wifi circle"></i>
+                                <i class="soap-icon-fitnessfacility circle"></i>
+                                <i class="soap-icon-fork circle"></i>
+                                <i class="soap-icon-television circle"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="five-stars-container">
+                                <span class="five-stars" style="width: 80%;"></span>
+                            </div>
+                            <span class="review">{{ hotel.reviews|length }} reviews</span>
                         </div>
                     </div>
                     <div>
-                        <div class="five-stars-container">
-                            <span class="five-stars" style="width: 80%;"></span>
-                        </div>
-                        <span class="review">270 reviews</span>
-                    </div>
-                </div>
-                <div>
-                    <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
-                    <div>
-                        <span class="price"><small>AVG/NIGHT</small>$620</span>
-                        <a class="button btn-small full-width text-center" title="" href="{{ path('hotel_detailed') }}">SELECT</a>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <article class="box">
-            <figure class="col-sm-5 col-md-4">
-                <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-            </figure>
-            <div class="details col-sm-7 col-md-8">
-                <div>
-                    <div>
-                        <h4 class="box-title">Forte Do Vale<small><i class="soap-icon-departure yellow-color"></i> Albufeira</small></h4>
-                        <div class="amenities">
-                            <i class="soap-icon-wifi circle"></i>
-                            <i class="soap-icon-fitnessfacility circle"></i>
-                            <i class="soap-icon-fork circle"></i>
-                            <i class="soap-icon-television circle"></i>
+                        <p>{{ hotel.shortDescription }}</p>
+                        <div>
+                            <span class="price"><small>AVG/NIGHT</small>${{ hotel.averagePrice }}</span>
+                            <a class="button btn-small full-width text-center" title="" href="{{ path('hotel_detailed', {'id':hotel.id}) }}">SELECT</a>
                         </div>
                     </div>
-                    <div>
-                        <div class="five-stars-container">
-                            <span class="five-stars" style="width: 80%;"></span>
-                        </div>
-                        <span class="review">170 reviews</span>
-                    </div>
                 </div>
-                <div>
-                    <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
-                    <div>
-                        <span class="price"><small>AVG/NIGHT</small>$120</span>
-                        <a class="button btn-small full-width text-center" title="" href="{{ path('hotel_detailed') }}">SELECT</a>
-                    </div>
-                </div>
-            </div>
-        </article>
+            </article>
+        {% endfor %}
     </div>
 {% endblock %}

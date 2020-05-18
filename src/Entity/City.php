@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CityRepository::class)
@@ -41,7 +42,7 @@ class City
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="city", cascade={"persist", "remove", "merge"})
      */
-    private ArrayCollection $hotels;
+    private PersistentCollection $hotels;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -142,9 +143,9 @@ class City
     }
 
     /**
-     * @param ArrayCollection $hotels
+     * @param PersistentCollection $hotels
      */
-    public function setHotels(ArrayCollection $hotels): void
+    public function setHotels(PersistentCollection $hotels): void
     {
         $this->hotels = $hotels;
     }

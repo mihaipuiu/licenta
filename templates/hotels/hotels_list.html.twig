@@ -2,7 +2,7 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-4 col-md-3">
-            <h4 class="search-results-title"><i class="soap-icon-search"></i><b>1,984</b> results found.</h4>
+            <h4 class="search-results-title"><i class="soap-icon-search"></i><b>{{ hotels|length }}</b> results found.</h4>
             <div class="toggle-container filters-container">
                 <div class="panel style1 arrow-right">
                     <h4 class="panel-title">
@@ -26,8 +26,6 @@
                     <div id="rating-filter" class="panel-collapse collapse">
                         <div class="panel-content">
                             <div id="rating" class="five-stars-container editable-rating"></div>
-                            <br />
-                            <small>2458 REVIEWS</small>
                         </div>
                     </div>
                 </div>

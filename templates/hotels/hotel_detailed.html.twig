@@ -101,14 +101,11 @@
                     <div class="intro table-wrapper full-width hidden-table-sms">
                         <div class="col-sm-5 col-lg-4 features table-cell">
                             <ul>
-                                <li><label>hotel type:</label>4 star</li>
+                                <li><label>hotel type:</label>{{ hotel.overallRating }} star</li>
                                 <li><label>Extra people:</label>No Charge</li>
-                                <li><label>Minimum Stay:</label>2 nights</li>
-                                <li><label>Security Deposit:</label>$279</li>
-                                <li><label>Country:</label>France</li>
-                                <li><label>City:</label>Paris</li>
-                                <li><label>Neighborhood:</label>République</li>
-                                <li><label>Cancellation:</label>strict</li>
+                                <li><label>Country:</label>{{ hotel.city.country.name }}</li>
+                                <li><label>City:</label>{{ hotel.city.name }}</li>
+                                <li><label>Neighborhood:</label>{{ hotel.city.region.name }}</li>
                             </ul>
                         </div>
                         <div class="col-sm-7 col-lg-8 table-cell testimonials">
@@ -140,20 +137,16 @@
                         </div>
                     </div>
                     <div class="long-description">
-                        <h2>About Hilton Hotel and Resorts</h2>
+                        <h2>About {{ hotel.name }}</h2>
                         <p>
-                            Sed aliquam nunc eget velit imperdiet, in rutrum mauris malesuada. Quisque ullamcorper vulputate nisi, et fringilla ante convallis quis. Nullam vel tellus non elit suscipit volutpat. Integer id felis et nibh rutrum dignissim ut non risus. In tincidunt urna quis sem luctus, sed accumsan magna pellentesque. Donec et iaculis tellus. Vestibulum ut iaculis justo, auctor sodales lectus. Donec et tellus tempus, dignissim maurornare, consequat lacus. Integer dui neque, scelerisque nec sollicitudin sit amet, sodales a erat. Duis vitae condimentum ligula. Integer eu mi nisl. Donec massa dui, commodo id arcu quis, venenatis scelerisque velit.
-                            <br /><br />
-                            Praesent eros turpis, commodo vel justo at, pulvinar mollis eros. Mauris aliquet eu quam id ornare. Morbi ac quam enim. Cras vitae nulla condimentum, semper dolor non, faucibus dolor. Vivamus adipiscing eros quis orci fringilla, sed pretium lectus viverra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec nec velit non odio aliquam suscipit. Sed non neque faucibus, condimentum lectus at, accumsan enim. Fusce pretium egestas cursus. Etiam consectetur, orci vel rutrum volutpat, odio odio pretium nisiodo tellus libero et urna. Sed commodo ipsum ligula, id volutpat risus vehicula in. Pellentesque non massa eu nibh posuere bibendum non sed enim. Maecenas lobortis nulla sem, vel egestas dui ullamcorper ac.
-                            <br /><br />
-                            Sed scelerisque lectus sit amet faucibus sodales. Proin ut risus tortor. Etiam fermentum tellus auctor, fringilla sapien et, congue quam. In a luctus tortor. Suspendisse eget tempor libero, ut sollicitudin ligula. Nulla vulputate tincidunt est non congue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus at est imperdiet, dapibus ipsum vel, lacinia nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus id interdum lectus, ut elementum elit. Nullam a molestie magna. Praesent eros turpis, commodo vel justo at, pulvinar mollis eros. Mauris aliquet eu quam id ornare. Morbi ac quam enim. Cras vitae nulla condimentum, semper dolor non, faucibus dolor. Vivamus adipiscing eros quis orci fringilla, sed pretium lectus viverra.
+                            {{ hotel.fullDescription|nl2br|nl2br }}
                         </p>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="hotel-availability">
                     <form>
                         <div class="update-search clearfix">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <h4 class="title">When</h4>
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -170,47 +163,24 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <h4 class="title">Who</h4>
                                 <div class="row">
-                                    <div class="col-xs-4">
-                                        <label>ROOMS</label>
+                                    <div class="col-xs-12">
+                                        <label>Persons</label>
                                         <div class="selector">
                                             <select class="full-width">
                                                 <option value="1">01</option>
                                                 <option value="2">02</option>
                                                 <option value="3">03</option>
                                                 <option value="4">04</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label>ADULTS</label>
-                                        <div class="selector">
-                                            <select class="full-width">
-                                                <option value="1">01</option>
-                                                <option value="2">02</option>
-                                                <option value="3">03</option>
-                                                <option value="4">04</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label>KIDS</label>
-                                        <div class="selector">
-                                            <select class="full-width">
-                                                <option value="1">01</option>
-                                                <option value="2">02</option>
-                                                <option value="3">03</option>
-                                                <option value="4">04</option>
+                                                <option value="5">05</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <h4 class="visible-md visible-lg">&nbsp;</h4>
                                 <label class="visible-md visible-lg">&nbsp;</label>
                                 <div class="row">
@@ -223,138 +193,41 @@
                     </form>
                     <h2>Available Rooms</h2>
                     <div class="room-list listing-style3 hotel">
-                        <article class="box">
-                            <figure class="col-sm-4 col-md-3">
-                                <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="230" height="160" src="http://placehold.it/230x160" alt=""></a>
-                            </figure>
-                            <div class="details col-xs-12 col-sm-8 col-md-9">
-                                <div>
+                        {% for room in hotel.rooms %}
+                            <article class="box">
+                                <figure class="col-sm-4 col-md-3">
+                                    <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="230" height="160" src="http://placehold.it/230x160" alt=""></a>
+                                </figure>
+                                <div class="details col-xs-12 col-sm-8 col-md-9">
                                     <div>
-                                        <div class="box-title">
-                                            <h4 class="title">Standard Family Room</h4>
-                                            <dl class="description">
-                                                <dt>Max Guests:</dt>
-                                                <dd>3 persons</dd>
-                                            </dl>
+                                        <div>
+                                            <div class="box-title">
+                                                <h4 class="title">{{ room.title }}</h4>
+                                                <dl class="description">
+                                                    <dt>Max Guests:</dt>
+                                                    <dd>{{ room.maxGuests }} persons</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="amenities">
+                                                {% if hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle"></i>{% endif %}
+                                                {% if hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle"></i>{% endif %}
+                                                {% if hotel.hotelFacility.hasRestaurant %}<i class="soap-icon-fork circle"></i>{% endif %}
+                                                {% if hotel.hotelFacility.hasTv %}<i class="soap-icon-television circle"></i>{% endif %}
+                                            </div>
                                         </div>
-                                        <div class="amenities">
-                                            <i class="soap-icon-wifi circle"></i>
-                                            <i class="soap-icon-fitnessfacility circle"></i>
-                                            <i class="soap-icon-fork circle"></i>
-                                            <i class="soap-icon-television circle"></i>
+                                        <div class="price-section">
+                                            <span class="price"><small>PER/NIGHT</small>${{ room.price }}</span>
                                         </div>
                                     </div>
-                                    <div class="price-section">
-                                        <span class="price"><small>PER/NIGHT</small>$121</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
-                                    <div class="action-section">
-                                        <a href="hotel-booking.html" title="" class="button btn-small full-width text-center">BOOK NOW</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="box">
-                            <figure class="col-sm-4 col-md-3">
-                                <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="230" height="160" src="http://placehold.it/230x160" alt=""></a>
-                            </figure>
-                            <div class="details col-xs-12 col-sm-8 col-md-9">
-                                <div>
                                     <div>
-                                        <div class="box-title">
-                                            <h4 class="title">Superior Double Room</h4>
-                                            <dl class="description">
-                                                <dt>Max Guests:</dt>
-                                                <dd>5 persons</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="amenities">
-                                            <i class="soap-icon-wifi circle"></i>
-                                            <i class="soap-icon-fitnessfacility circle"></i>
-                                            <i class="soap-icon-fork circle"></i>
-                                            <i class="soap-icon-television circle"></i>
+                                        <p>{{ room.subtitle }}</p>
+                                        <div class="action-section">
+                                            <a href="hotel-booking.html" title="" class="button btn-small full-width text-center">BOOK NOW</a>
                                         </div>
                                     </div>
-                                    <div class="price-section">
-                                        <span class="price"><small>PER/NIGHT</small>$241</span>
-                                    </div>
                                 </div>
-                                <div>
-                                    <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
-                                    <div class="action-section">
-                                        <a href="hotel-booking.html" title="" class="button btn-small full-width text-center">BOOK NOW</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="box">
-                            <figure class="col-sm-4 col-md-3">
-                                <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="230" height="160" src="http://placehold.it/230x160" alt=""></a>
-                            </figure>
-                            <div class="details col-xs-12 col-sm-8 col-md-9">
-                                <div>
-                                    <div>
-                                        <div class="box-title">
-                                            <h4 class="title">Deluxe Single Room</h4>
-                                            <dl class="description">
-                                                <dt>Max Guests:</dt>
-                                                <dd>4 persons</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="amenities">
-                                            <i class="soap-icon-wifi circle"></i>
-                                            <i class="soap-icon-fitnessfacility circle"></i>
-                                            <i class="soap-icon-fork circle"></i>
-                                            <i class="soap-icon-television circle"></i>
-                                        </div>
-                                    </div>
-                                    <div class="price-section">
-                                        <span class="price"><small>PER/NIGHT</small>$137</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
-                                    <div class="action-section">
-                                        <a href="hotel-booking.html" title="" class="button btn-small full-width text-center">BOOK NOW</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="box">
-                            <figure class="col-sm-4 col-md-3">
-                                <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="230" height="160" src="http://placehold.it/230x160" alt=""></a>
-                            </figure>
-                            <div class="details col-xs-12 col-sm-8 col-md-9">
-                                <div>
-                                    <div>
-                                        <div class="box-title">
-                                            <h4 class="title">Single Bed Room</h4>
-                                            <dl class="description">
-                                                <dt>Max Guests:</dt>
-                                                <dd>2 persons</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="amenities">
-                                            <i class="soap-icon-wifi circle"></i>
-                                            <i class="soap-icon-fitnessfacility circle"></i>
-                                            <i class="soap-icon-fork circle"></i>
-                                            <i class="soap-icon-television circle"></i>
-                                        </div>
-                                    </div>
-                                    <div class="price-section">
-                                        <span class="price"><small>PER/NIGHT</small>$55</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
-                                    <div class="action-section">
-                                        <a href="hotel-booking.html" title="" class="button btn-small full-width text-center">BOOK NOW</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        {% endfor %}
                         <a href="#" class="load-more button full-width btn-large fourty-space">LOAD MORE ROOMS</a>
                     </div>
 
@@ -362,84 +235,48 @@
                 <div class="tab-pane fade" id="hotel-reviews">
                     <div class="intro table-wrapper full-width hidden-table-sms">
                         <div class="rating table-cell col-sm-4">
-                            <span class="score">3.9/5.0</span>
-                            <div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div>
+                            <span class="score">{{ hotel.overallRating }}/5.0</span>
+                            <div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></div></div>
                             <a href="#" class="goto-writereview-pane button green btn-small full-width">WRITE A REVIEW</a>
                         </div>
                         <div class="table-cell col-sm-8">
                             <div class="detailed-rating">
                                 <ul class="clearfix">
-                                    <li class="col-md-6"><div class="each-rating"><label>service</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>Value</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>Sleep Quality</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>Cleanliness</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>location</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>rooms</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>swimming pool</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>fitness facility</label><div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>service</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallServiceRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>Value</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallValueRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>Sleep Quality</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallSleepRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>Cleanliness</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallCleanlinessRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>location</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallLocationRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>rooms</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallRoomsRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>swimming pool</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallPoolRating * 20 }}%;"></div></div></div></li>
+                                    <li class="col-md-6"><div class="each-rating"><label>fitness facility</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallFitnessRating * 20 }}%;"></div></div></div></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="guest-reviews">
                         <h2>Guest Reviews</h2>
-                        <div class="guest-review table-wrapper">
-                            <div class="col-xs-3 col-md-2 author table-cell">
-                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                <p class="name">Jessica Brown</p>
-                                <p class="date">NOV, 12, 2013</p>
-                            </div>
-                            <div class="col-xs-9 col-md-10 table-cell comment-container">
-                                <div class="comment-header clearfix">
-                                    <h4 class="comment-title">We had great experience while our stay and Hilton Hotels!</h4>
-                                    <div class="review-score">
-                                        <div class="five-stars-container"><div class="five-stars" style="width: 80%;"></div></div>
-                                        <span class="score">4.0/5.0</span>
+                        {% for review in hotel.reviews %}
+                            <div class="guest-review table-wrapper">
+                                <div class="col-xs-3 col-md-2 author table-cell">
+                                    <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                    <p class="name">{{ review.reviewerName }}</p>
+                                    <p class="date">{{ review.created }}</p>
+                                </div>
+                                <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                    <div class="comment-header clearfix">
+                                        <h4 class="comment-title">{{ review.title }}</h4>
+                                        <div class="review-score">
+                                            <div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></div></div>
+                                            <span class="score">{{ hotel.overallRating }}/5.0</span>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content">
+                                        <p>{{ review.description }}</p>
                                     </div>
                                 </div>
-                                <div class="comment-content">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-                                </div>
                             </div>
-                        </div>
-                        <div class="guest-review table-wrapper">
-                            <div class="col-xs-3 col-md-2 author table-cell">
-                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                <p class="name">David Jhon</p>
-                                <p class="date">NOV, 12, 2013</p>
-                            </div>
-                            <div class="col-xs-9 col-md-10 table-cell comment-container">
-                                <div class="comment-header clearfix">
-                                    <h4 class="comment-title">I love the speediness of their services.</h4>
-                                    <div class="review-score">
-                                        <div class="five-stars-container"><div class="five-stars" style="width: 64%;"></div></div>
-                                        <span class="score">3.2/5.0</span>
-                                    </div>
-                                </div>
-                                <div class="comment-content">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="guest-review table-wrapper">
-                            <div class="col-xs-3 col-md-2 author table-cell">
-                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                <p class="name">Kyle Martin</p>
-                                <p class="date">NOV, 12, 2013</p>
-                            </div>
-                            <div class="col-xs-9 col-md-10 table-cell comment-container">
-                                <div class="comment-header clearfix">
-                                    <h4 class="comment-title">When you look outside from the windows its breath taking.</h4>
-                                    <div class="review-score">
-                                        <div class="five-stars-container"><div class="five-stars" style="width: 76%;"></div></div>
-                                        <span class="score">3.8/5.0</span>
-                                    </div>
-                                </div>
-                                <div class="comment-content">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <a href="#" class="button full-width btn-large">LOAD MORE REVIEWS</a>
                 </div>
@@ -450,10 +287,10 @@
                                 <a class="hover-effect" title="" href="#"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
                             </figure>
                             <div class="details">
-                                <h4 class="box-title">Hilton Hotel and Resorts<small><i class="soap-icon-departure"></i> Paris, france</small></h4>
+                                <h4 class="box-title">{{ hotel.name }}<small><i class="soap-icon-departure"></i> {{ hotel.city.name }}, {{ hotel.city.country.name }}</small></h4>
                                 <div class="feedback">
-                                    <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                    <span class="review">270 reviews</span>
+                                    <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></span></div>
+                                    <span class="review">{{ hotel.reviews|length }} reviews</span>
                                 </div>
                             </div>
                         </article>
@@ -488,50 +325,6 @@
                             <h4 class="title">Your review</h4>
                             <textarea class="input-text full-width" placeholder="enter your review (minimum 200 characters)" rows="5"></textarea>
                         </div>
-                        <div class="form-group">
-                            <h4 class="title">What sort of Trip was this?</h4>
-                            <ul class="sort-trip clearfix">
-                                <li><a href="#"><i class="soap-icon-businessbag circle"></i></a><span>Business</span></li>
-                                <li><a href="#"><i class="soap-icon-couples circle"></i></a><span>Couples</span></li>
-                                <li><a href="#"><i class="soap-icon-family circle"></i></a><span>Family</span></li>
-                                <li><a href="#"><i class="soap-icon-friends circle"></i></a><span>Friends</span></li>
-                                <li><a href="#"><i class="soap-icon-user circle"></i></a><span>Solo</span></li>
-                            </ul>
-                        </div>
-                        <div class="form-group col-md-5 no-float no-padding">
-                            <h4 class="title">When did you travel?</h4>
-                            <div class="selector">
-                                <select class="full-width">
-                                    <option value="2014-6">June 2014</option>
-                                    <option value="2014-7">July 2014</option>
-                                    <option value="2014-8">August 2014</option>
-                                    <option value="2014-9">September 2014</option>
-                                    <option value="2014-10">October 2014</option>
-                                    <option value="2014-11">November 2014</option>
-                                    <option value="2014-12">December 2014</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <h4 class="title">Add a tip to help travelers choose a good room</h4>
-                            <textarea class="input-text full-width" rows="3" placeholder="write something here"></textarea>
-                        </div>
-                        <div class="form-group col-md-5 no-float no-padding">
-                            <h4 class="title">Do you have photos to share? <small>(Optional)</small> </h4>
-                            <div class="fileinput full-width">
-                                <input type="file" class="input-text" data-placeholder="select image/s" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <h4 class="title">Share with friends <small>(Optional)</small></h4>
-                            <p>Share your review with your friends on different social media networks.</p>
-                            <ul class="social-icons icon-circle clearfix">
-                                <li class="twitter"><a title="Twitter" href="#" data-toggle="tooltip"><i class="soap-icon-twitter"></i></a></li>
-                                <li class="facebook"><a title="Facebook" href="#" data-toggle="tooltip"><i class="soap-icon-facebook"></i></a></li>
-                                <li class="googleplus"><a title="GooglePlus" href="#" data-toggle="tooltip"><i class="soap-icon-googleplus"></i></a></li>
-                                <li class="pinterest"><a title="Pinterest" href="#" data-toggle="tooltip"><i class="soap-icon-pinterest"></i></a></li>
-                            </ul>
-                        </div>
                         <div class="form-group col-md-5 no-float no-padding no-margin">
                             <button type="submit" class="btn-large full-width">SUBMIT REVIEW</button>
                         </div>
@@ -548,16 +341,16 @@
                 <img width="114" height="85" src="http://placehold.it/114x85" alt="">
             </figure>
             <div class="details">
-                <h2 class="box-title">Hilton Hotel and Resorts<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">Bastille, Paris france</span></small></h2>
+                <h2 class="box-title">{{ hotel.name }}<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">{{ hotel.city.name }}, {{ hotel.city.country.name }}</span></small></h2>
                 <span class="price clearfix">
                                     <small class="pull-left">avg/night</small>
-                                    <span class="pull-right">$620</span>
+                                    <span class="pull-right">${{ hotel.averagePrice }}</span>
                                 </span>
                 <div class="feedback clearfix">
                     <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                    <span class="review pull-right">270 reviews</span>
+                    <span class="review pull-right">{{ hotel.reviews|length }} reviews</span>
                 </div>
-                <p class="description">Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus fringilla bibe endum.</p>
+                <p class="description">{{ hotel.shortDescription }}</p>
                 <a class="button yellow full-width uppercase btn-small">add to wishlist</a>
             </div>
         </article>

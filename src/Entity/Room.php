@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RoomRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=RoomRepository::class)
@@ -51,12 +51,7 @@ class Room
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="room")
      */
-    private ArrayCollection $roomOccupations;
-
-    public function __construct()
-    {
-        $this->roomOccupations = new ArrayCollection();
-    }
+    private PersistentCollection $roomOccupations;
 
     public function getId(): ?int
     {
@@ -160,17 +155,17 @@ class Room
     }
 
     /**
-     * @return ArrayCollection
+     * @return PersistentCollection
      */
-    public function getRoomOccupations(): ArrayCollection
+    public function getRoomOccupations(): PersistentCollection
     {
         return $this->roomOccupations;
     }
 
     /**
-     * @param ArrayCollection $roomOccupations
+     * @param PersistentCollection $roomOccupations
      */
-    public function setRoomOccupations(ArrayCollection $roomOccupations): void
+    public function setRoomOccupations(PersistentCollection $roomOccupations): void
     {
         $this->roomOccupations = $roomOccupations;
     }

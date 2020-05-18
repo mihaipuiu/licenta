@@ -26,6 +26,11 @@ class HotelReview
     /**
      * @ORM\Column(type="smallint", length=1)
      */
+    private int $overallRating;
+
+    /**
+     * @ORM\Column(type="smallint", length=1)
+     */
     private int $serviceRating;
 
     /**
@@ -107,6 +112,22 @@ class HotelReview
     public function setHotel(Hotel $hotel): void
     {
         $this->hotel = $hotel;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOverallRating(): int
+    {
+        return $this->overallRating;
+    }
+
+    /**
+     * @param int $overallRating
+     */
+    public function setOverallRating(int $overallRating): void
+    {
+        $this->overallRating = $overallRating;
     }
 
     /**

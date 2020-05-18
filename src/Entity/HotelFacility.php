@@ -50,7 +50,7 @@ class HotelFacility
     /**
      * @return bool
      */
-    public function isHasRestaurant(): bool
+    public function  getHasRestaurant(): bool
     {
         return $this->hasRestaurant;
     }
@@ -66,7 +66,7 @@ class HotelFacility
     /**
      * @return bool
      */
-    public function isHasFitness(): bool
+    public function  getHasFitness(): bool
     {
         return $this->hasFitness;
     }
@@ -82,7 +82,7 @@ class HotelFacility
     /**
      * @return bool
      */
-    public function isHasWifi(): bool
+    public function  getHasWifi(): bool
     {
         return $this->hasWifi;
     }
@@ -98,7 +98,7 @@ class HotelFacility
     /**
      * @return bool
      */
-    public function isHasTv(): bool
+    public function  getHasTv(): bool
     {
         return $this->hasTv;
     }

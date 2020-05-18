@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use App\Repository\HotelRepository;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=HotelRepository::class)
@@ -57,12 +57,12 @@ class Hotel
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="hotel")
      */
-    private ArrayCollection $rooms;
+    private PersistentCollection $rooms;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\HotelReview", mappedBy="hotel")
      */
-    private ArrayCollection $reviews;
+    private PersistentCollection $reviews;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\City")
@@ -81,8 +81,7 @@ class Hotel
 
     public function __construct()
     {
-        $this->rooms = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
+        $this->created = new DateTime();
     }
 
     /**
@@ -256,34 +255,193 @@ class Hotel
     }
 
     /**
-     * @return ArrayCollection
+     * @return PersistentCollection<Room>
      */
-    public function getRooms(): ArrayCollection
+    public function getRooms(): PersistentCollection
     {
         return $this->rooms;
     }
 
     /**
-     * @param ArrayCollection $rooms
+     * @param PersistentCollection $rooms
      */
-    public function setRooms(ArrayCollection $rooms): void
+    public function setRooms(PersistentCollection $rooms): void
     {
         $this->rooms = $rooms;
     }
 
     /**
-     * @return ArrayCollection
+     * @return PersistentCollection
      */
-    public function getReviews(): ArrayCollection
+    public function getReviews(): PersistentCollection
     {
         return $this->reviews;
     }
 
     /**
-     * @param ArrayCollection $reviews
+     * @param PersistentCollection $reviews
      */
-    public function setReviews(ArrayCollection $reviews): void
+    public function setReviews(PersistentCollection $reviews): void
     {
         $this->reviews = $reviews;
+    }
+
+    public function getAveragePrice(): int
+    {
+        $sum = 0;
+        if(count($this->rooms) == 0) {
+            return $sum;
+        }
+
+        /** @var Room $room */
+        foreach($this->rooms as $room) {
+            $sum += $room->getPrice();
+        }
+
+        return $sum/count($this->rooms);
+    }
+
+    public function getOverallRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getOverallRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallServiceRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getServiceRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallSleepRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getSleepRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallLocationRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getLocationRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallPoolRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getPoolRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallValueRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getValueRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallCleanlinessRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getCleanlinessRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallRoomsRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getRoomsRating();
+        }
+
+        return $rating/count($this->reviews);
+    }
+
+    public function getOverallFitnessRating(): int
+    {
+        $rating = 0;
+
+        if(count($this->reviews) == 0) {
+            return $rating;
+        }
+
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $rating += $review->getFitnessRating();
+        }
+
+        return $rating/count($this->reviews);
     }
 }

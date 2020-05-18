@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PartnerRepository;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PartnerRepository::class)
@@ -39,7 +39,7 @@ class Partner
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="partner", cascade={"persist", "remove", "merge"})
      */
-    private ArrayCollection $hotels;
+    private PersistentCollection $hotels;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
@@ -49,7 +49,6 @@ class Partner
     public function __construct()
     {
         $this->status = self::PARTNER_STATUS_ACTIVE;
-        $this->hotels = new ArrayCollection();
         $this->created = new DateTime();
     }
 
@@ -126,17 +125,17 @@ class Partner
     }
 
     /**
-     * @return ArrayCollection
+     * @return PersistentCollection
      */
-    public function getHotels(): ArrayCollection
+    public function getHotels(): PersistentCollection
     {
         return $this->hotels;
     }
 
     /**
-     * @param ArrayCollection $hotels
+     * @param PersistentCollection $hotels
      */
-    public function setHotels(ArrayCollection $hotels): void
+    public function setHotels(PersistentCollection $hotels): void
     {
         $this->hotels = $hotels;
     }
