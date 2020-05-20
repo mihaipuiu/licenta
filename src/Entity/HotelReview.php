@@ -24,9 +24,9 @@ class HotelReview
     private Hotel $hotel;
 
     /**
-     * @ORM\Column(type="smallint", length=1)
+     * @ORM\Column(type="decimal", precision=2, scale=1)
      */
-    private int $overallRating;
+    private float $overallRating;
 
     /**
      * @ORM\Column(type="smallint", length=1)
@@ -115,17 +115,17 @@ class HotelReview
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getOverallRating(): int
+    public function getOverallRating(): float
     {
         return $this->overallRating;
     }
 
     /**
-     * @param int $overallRating
+     * @param float $overallRating
      */
-    public function setOverallRating(int $overallRating): void
+    public function setOverallRating(float $overallRating): void
     {
         $this->overallRating = $overallRating;
     }

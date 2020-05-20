@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\HotelRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=HotelRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Hotel
 {
@@ -50,6 +52,11 @@ class Hotel
     private string $fullDescription;
 
     /**
+     * @ORM\Column(type="decimal", precision=2, scale=1)
+     */
+    private float $overallRating;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\HotelFacility", mappedBy="hotel")
      */
     private HotelFacility $hotelFacility;
@@ -73,6 +80,11 @@ class Hotel
      * @ORM\ManyToOne(targetEntity="App\Entity\Partner", cascade={"all"}, inversedBy="hotels")
      */
     private Partner $partner;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\HotelPhoto", mappedBy="hotel")
+     */
+    private PersistentCollection $hotelPhotos;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
@@ -155,8 +167,6 @@ class Hotel
     {
         $this->phone = $phone;
     }
-
-
 
     /**
      * @return Partner
@@ -286,6 +296,22 @@ class Hotel
         $this->reviews = $reviews;
     }
 
+    /**
+     * @return PersistentCollection
+     */
+    public function getHotelPhotos(): PersistentCollection
+    {
+        return $this->hotelPhotos;
+    }
+
+    /**
+     * @param PersistentCollection $hotelPhotos
+     */
+    public function setHotelPhotos(PersistentCollection $hotelPhotos): void
+    {
+        $this->hotelPhotos = $hotelPhotos;
+    }
+
     public function getAveragePrice(): int
     {
         $sum = 0;
@@ -301,11 +327,19 @@ class Hotel
         return $sum/count($this->rooms);
     }
 
-    public function getOverallRating(): int
+    /**
+     * @return float
+     */
+    public function getOverallRating(): float
     {
-        $rating = 0;
+        return $this->overallRating;
+    }
 
-        if(count($this->reviews) == 0) {
+    public function getOverallRatingFromRooms(): float
+    {
+        $rating = 0.0;
+
+        if(count($this->reviews) == 0.0) {
             return $rating;
         }
 
@@ -314,7 +348,7 @@ class Hotel
             $rating += $review->getOverallRating();
         }
 
-        return $rating/count($this->reviews);
+        return round($rating/count($this->reviews), 1);
     }
 
     public function getOverallServiceRating(): int
@@ -443,5 +477,103 @@ class Hotel
         }
 
         return $rating/count($this->reviews);
+    }
+
+    public function getLastThreeReviews(): ArrayCollection
+    {
+        $reviews = new ArrayCollection();
+        $i = 0;
+        /** @var HotelReview $review */
+        foreach($this->reviews as $review) {
+            $i++;
+            if($i>3) {
+                break;
+            }
+            $reviews->add($review);
+        }
+
+        return $reviews;
+    }
+
+    public function getLowestPriceRoom(): Room
+    {
+        $minPriceRoom = new Room();
+        $minPriceRoom->setPrice(90000000);
+        /** @var Room $room */
+        foreach($this->rooms as $room) {
+            if($minPriceRoom->getPrice() > $room->getPrice()) {
+                $minPriceRoom = $room;
+            }
+        }
+
+        return $minPriceRoom;
+    }
+
+    public function getHighestPriceRoom(): Room
+    {
+        $minPriceRoom = new Room();
+        $minPriceRoom->setPrice(90000000);
+        /** @var Room $room */
+        foreach($this->rooms as $room) {
+            if($minPriceRoom->getPrice() > $room->getPrice()) {
+                $minPriceRoom = $room;
+            }
+        }
+
+        return $minPriceRoom;
+    }
+
+    public function hasAnyRoomAvailable(\DateTime $checkInDate = null, \DateTime $checkOutDate = null): bool
+    {
+        /** @var Room $room */
+        foreach($this->getRooms() as $room) {
+            if($room->roomIsAvailable($checkInDate, $checkOutDate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function getLowestPriceRoomOfHotels($hotels): Room
+    {
+        $minPriceRoom = new Room();
+        $minPriceRoom->setPrice(90000000);
+        /** @var Hotel $hotel */
+        foreach($hotels as $hotel) {
+            /** @var Room $room */
+            foreach($hotel->rooms as $room) {
+                if($minPriceRoom->getPrice() > $room->getPrice()) {
+                    $minPriceRoom = $room;
+                }
+            }
+        }
+
+        return $minPriceRoom;
+    }
+
+    public static function getHighestPriceRoomOfHotels($hotels): Room
+    {
+        $maxPriceRoom = new Room();
+        $maxPriceRoom->setPrice(0);
+        /** @var Hotel $hotel */
+        foreach($hotels as $hotel) {
+            /** @var Room $room */
+            foreach($hotel->rooms as $room) {
+                if($maxPriceRoom->getPrice() < $room->getPrice()) {
+                    $maxPriceRoom = $room;
+                }
+            }
+        }
+
+        return $maxPriceRoom;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function prePersist()
+    {
+        $this->overallRating = $this->getOverallRatingFromRooms();
     }
 }

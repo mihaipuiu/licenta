@@ -4,7 +4,7 @@
         {% for hotel in hotels %}
             <article class="box">
                 <figure class="col-sm-5 col-md-4">
-                    <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
+                    <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="{{ asset(hotel.hotelPhotos.first.photoFilename) }}"></a>
                 </figure>
                 <div class="details col-sm-7 col-md-8">
                     <div>
@@ -27,7 +27,7 @@
                     <div>
                         <p>{{ hotel.shortDescription }}</p>
                         <div>
-                            <span class="price"><small>AVG/NIGHT</small>${{ hotel.averagePrice }}</span>
+                            <span class="price"><small>FROM</small>${{ hotel.lowestPriceRoom.price }}</span>
                             <a class="button btn-small full-width text-center" title="" href="{{ path('hotel_detailed', {'id':hotel.id}) }}">SELECT</a>
                         </div>
                     </div>

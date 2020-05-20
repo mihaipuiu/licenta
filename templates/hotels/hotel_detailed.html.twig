@@ -12,36 +12,16 @@
                 <div id="photos-tab" class="tab-pane fade in active">
                     <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
                         <ul class="slides">
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                            <li><img src="http://placehold.it/900x500" alt="" /></li>
+                            {% for photo in hotel.hotelPhotos %}
+                                <li><img src="{{ asset(photo.photoFilename) }}" alt="" /></li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
                         <ul class="slides">
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                            <li><img src="http://placehold.it/70x70" alt="" /></li>
+                            {% for photo in hotel.hotelPhotos %}
+                                <li><img src="{{ asset(photo.photoFilename) }}" alt="" /></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -111,27 +91,15 @@
                         <div class="col-sm-7 col-lg-8 table-cell testimonials">
                             <div class="testimonial style1">
                                 <ul class="slides ">
+                                    {% for review in hotel.lastThreeReviews %}
                                     <li>
-                                        <p class="description">Always enjoyed my stay with Hilton Hotel and Resorts, top class room service and rooms have great outside views and luxury assessories. Thanks for great experience.</p>
+                                        <p class="description">{{ review.description }}</p>
                                         <div class="author clearfix">
                                             <a href="#"><img src="http://placehold.it/270x270" alt="" width="74" height="74" /></a>
-                                            <h5 class="name">Jessica Brown<small>guest</small></h5>
+                                            <h5 class="name">{{ review.reviewerName }}<small>{{ review.created|format_datetime }}</small></h5>
                                         </div>
                                     </li>
-                                    <li>
-                                        <p class="description">Always enjoyed my stay with Hilton Hotel and Resorts, top class room service and rooms have great outside views and luxury assessories. Thanks for great experience.</p>
-                                        <div class="author clearfix">
-                                            <a href="#"><img src="http://placehold.it/270x270" alt="" width="74" height="74" /></a>
-                                            <h5 class="name">Lisa Kimberly<small>guest</small></h5>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p class="description">Always enjoyed my stay with Hilton Hotel and Resorts, top class room service and rooms have great outside views and luxury assessories. Thanks for great experience.</p>
-                                        <div class="author clearfix">
-                                            <a href="#"><img src="http://placehold.it/270x270" alt="" width="74" height="74" /></a>
-                                            <h5 class="name">Jessica Brown<small>guest</small></h5>
-                                        </div>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -261,14 +229,14 @@
                                 <div class="col-xs-3 col-md-2 author table-cell">
                                     <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
                                     <p class="name">{{ review.reviewerName }}</p>
-                                    <p class="date">{{ review.created }}</p>
+                                    <p class="date">{{ review.created|format_datetime }}</p>
                                 </div>
                                 <div class="col-xs-9 col-md-10 table-cell comment-container">
                                     <div class="comment-header clearfix">
                                         <h4 class="comment-title">{{ review.title }}</h4>
                                         <div class="review-score">
                                             <div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></div></div>
-                                            <span class="score">{{ hotel.overallRating }}/5.0</span>
+                                            <span class="score">{{ review.overallRating }}/5.0</span>
                                         </div>
                                     </div>
                                     <div class="comment-content">
@@ -278,7 +246,6 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <a href="#" class="button full-width btn-large">LOAD MORE REVIEWS</a>
                 </div>
                 <div class="tab-pane fade" id="hotel-write-review">
                     <div class="main-rating table-wrapper full-width hidden-table-sms intro">

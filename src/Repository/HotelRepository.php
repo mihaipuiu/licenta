@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\City;
 use App\Entity\Hotel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +22,65 @@ class HotelRepository extends ServiceEntityRepository
         parent::__construct($registry, Hotel::class);
     }
 
-    // /**
-    //  * @return Hotel[] Returns an array of Hotel objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findHotelsByFilters(
+        string $name = '',
+        int $minPrice = 0,
+        int $maxPrice = 99999,
+        float $minRating = 4.1,
+        int $guests = 0
+    )
     {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $checkInDate = new \DateTime();
+        $checkOutDate = new \DateTime();
 
-    /*
-    public function findOneBySomeField($value): ?Hotel
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+//        $checkInDate->sub(new \DateInterval('P2D'));
+//        $checkOutDate->add(new \DateInterval('P4D'));
+
+        $qb = $this->createQueryBuilder('h');
+        $qb->leftJoin('h.city', 'c');
+        $qb->leftJoin('h.reviews', 'rev');
+        $qb->leftJoin('h.rooms', 'roo');
+        $qb->leftJoin('roo.roomOccupations', 'roc');
+
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('h.name', ':name'),
+                        $qb->expr()->like('c.name', ':name')
+                    ),
+                    $qb->expr()->andX(
+                        $qb->expr()->between('roo.price', ':minPrice', ':maxPrice')
+                    ),
+                    $qb->expr()->andX(
+                        $qb->expr()->gte('h.overallRating', ':minRating')
+                    ),
+//                    $qb->expr()->orX(
+//                        $qb->expr()->in(
+//                            'roc.id', $qb->expr()->gte('roc.id', 0)
+//                        ),
+//                        $qb->expr()->isNull('roc.id')
+//                    ),
+                )
+            )
+            ->setParameter('name', '%Bucuresti%')
+            ->setParameter('minPrice', 0)
+            ->setParameter('maxPrice', 999999)
+            ->setParameter('minRating', 4.1);
+
+        if(!empty($guests)) {
+            $qb->andWhere(
+                $qb->expr()->andX(
+                    $qb->expr()->gte('roo.maxGuests', ':guests')
+                )
+            )
+            ->setParameter('guests', $guests);
+        }
+
+        $qb->distinct();
+
+//        dd($qb->getQuery()->getSQL());
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

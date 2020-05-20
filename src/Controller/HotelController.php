@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Entity\HotelFacility;
+use App\Entity\Room;
 use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,11 +24,14 @@ class HotelController extends AbstractController
      */
     public function list($viewType = 'block', HotelRepository $hotelRepository)
     {
-        $hotels = $hotelRepository->findAll();
+        $hotels = $hotelRepository->findHotelsByFilters('Bucuresti');
+
         return $this->render('hotels/view_types/'.$viewType.'_view.html.twig',  [
             'viewType' => $viewType,
             'subTitle' => 'Hotels List',
-            'hotels' => $hotels
+            'hotels' => $hotels,
+            'lowestPriceRoom' => Hotel::getLowestPriceRoomOfHotels($hotels),
+            'highestPriceRoom' => Hotel::getHighestPriceRoomOfHotels($hotels)
         ]);
     }
 

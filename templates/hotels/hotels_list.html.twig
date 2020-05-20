@@ -95,9 +95,9 @@
         tjq(document).ready(function() {
             tjq("#price-range").slider({
                 range: true,
-                min: 0,
-                max: 1000,
-                values: [ 100, 800 ],
+                min: {{ lowestPriceRoom.price }},
+                max: {{ highestPriceRoom.price }},
+                values: [ {{ lowestPriceRoom.price }}, {{ highestPriceRoom.price }} ],
                 slide: function( event, ui ) {
                     tjq(".min-price-label").html( "$" + ui.values[ 0 ]);
                     tjq(".max-price-label").html( "$" + ui.values[ 1 ]);

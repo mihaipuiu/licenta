@@ -18,33 +18,4 @@ class HotelReviewRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, HotelReview::class);
     }
-
-    // /**
-    //  * @return HotelReview[] Returns an array of HotelReview objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?HotelReview
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -18,33 +18,4 @@ class HotelFacilityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, HotelFacility::class);
     }
-
-    // /**
-    //  * @return HotelFacility[] Returns an array of HotelFacility objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?HotelFacility
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
