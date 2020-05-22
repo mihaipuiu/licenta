@@ -26,16 +26,10 @@ class HotelRepository extends ServiceEntityRepository
         string $name = '',
         int $minPrice = 0,
         int $maxPrice = 99999,
-        float $minRating = 4.1,
+        float $minRating = 0.0,
         int $guests = 0
     )
     {
-        $checkInDate = new \DateTime();
-        $checkOutDate = new \DateTime();
-
-//        $checkInDate->sub(new \DateInterval('P2D'));
-//        $checkOutDate->add(new \DateInterval('P4D'));
-
         $qb = $this->createQueryBuilder('h');
         $qb->leftJoin('h.city', 'c');
         $qb->leftJoin('h.reviews', 'rev');
@@ -54,19 +48,13 @@ class HotelRepository extends ServiceEntityRepository
                     ),
                     $qb->expr()->andX(
                         $qb->expr()->gte('h.overallRating', ':minRating')
-                    ),
-//                    $qb->expr()->orX(
-//                        $qb->expr()->in(
-//                            'roc.id', $qb->expr()->gte('roc.id', 0)
-//                        ),
-//                        $qb->expr()->isNull('roc.id')
-//                    ),
+                    )
                 )
             )
-            ->setParameter('name', '%Bucuresti%')
-            ->setParameter('minPrice', 0)
-            ->setParameter('maxPrice', 999999)
-            ->setParameter('minRating', 4.1);
+            ->setParameter('name', '%'.$name.'%')
+            ->setParameter('minPrice', $minPrice)
+            ->setParameter('maxPrice', $maxPrice)
+            ->setParameter('minRating', $minRating);
 
         if(!empty($guests)) {
             $qb->andWhere(
@@ -78,8 +66,6 @@ class HotelRepository extends ServiceEntityRepository
         }
 
         $qb->distinct();
-
-//        dd($qb->getQuery()->getSQL());
 
         return $qb->getQuery()->getResult();
     }

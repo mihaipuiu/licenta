@@ -14,11 +14,10 @@ use App\Repository\HotelRepository;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends AbstractController
+class DefaultController extends BaseController
 {
     /**
      * @Route(path="/", name="index")
@@ -204,17 +203,18 @@ class DefaultController extends AbstractController
 //            }
 //        }
 //        $entityManager->flush();
-        $hotels = $hotelRepository->findAll();
-        foreach($hotels as $hotel) {
-            $hotel->setCreated(new \DateTime());
-            $entityManager->persist($hotel);
-        }
-
-
-        $entityManager->flush();
+//        $hotels = $hotelRepository->findAll();
+//        foreach($hotels as $hotel) {
+//            $hotel->setCreated(new \DateTime());
+//            $entityManager->persist($hotel);
+//        }
+//
+//
+//        $entityManager->flush();
 
         return $this->render('homepage/homepage.html.twig', [
-            'subTitle' => 'Home'
+            'subTitle' => 'Home',
+            'searchForm' => $this->getSearchForm()->createView()
         ]);
     }
 

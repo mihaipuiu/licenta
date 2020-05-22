@@ -15,7 +15,7 @@
                             <span class="min-price-label pull-left"></span>
                             <span class="max-price-label pull-right"></span>
                             <div class="clearer"></div>
-                        </div><!-- end content -->
+                        </div>
                     </div>
                 </div>
 
@@ -30,35 +30,8 @@
                     </div>
                 </div>
 
-                <div class="panel style1 arrow-right">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#modify-search-panel" class="collapsed">Modify Search</a>
-                    </h4>
-                    <div id="modify-search-panel" class="panel-collapse collapse">
-                        <div class="panel-content">
-                            <form method="post">
-                                <div class="form-group">
-                                    <label>destination</label>
-                                    <input type="text" class="input-text full-width" placeholder="" value="Paris" />
-                                </div>
-                                <div class="form-group">
-                                    <label>check in</label>
-                                    <div class="datepicker-wrap">
-                                        <input type="text" name="date_from" class="input-text full-width" placeholder="mm/dd/yy" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>check out</label>
-                                    <div class="datepicker-wrap">
-                                        <input type="text" name="date_to" class="input-text full-width" placeholder="mm/dd/yy" />
-                                    </div>
-                                </div>
-                                <br />
-                                <button class="btn-medium icon-check uppercase full-width">search again</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <span id="search_by_filters" class="btn btn-success full-width">Filter</span>
+
             </div>
         </div>
         <div class="col-sm-8 col-md-9">
@@ -74,13 +47,13 @@
 
                 <ul class="swap-tiles clearfix block-sm">
                     <li class="swap-list{% if viewType == 'list' %} active{% endif %}">
-                        <a href="{{ path('hotels_list', {'viewType':'list'}) }}"><i class="soap-icon-list"></i></a>
+                        <a href="{{ path('hotels_list', {'viewType':'list'}) }}{% if not requestURI is empty %}?{{ requestURI }}{% endif %}"><i class="soap-icon-list"></i></a>
                     </li>
                     <li class="swap-grid{% if viewType == 'grid' %} active{% endif %}">
-                        <a href="{{ path('hotels_list', {'viewType':'grid'}) }}"><i class="soap-icon-grid"></i></a>
+                        <a href="{{ path('hotels_list', {'viewType':'grid'}) }}{% if not requestURI is empty %}?{{ requestURI }}{% endif %}"><i class="soap-icon-grid"></i></a>
                     </li>
                     <li class="swap-block{% if viewType == 'block' %} active{% endif %}">
-                        <a href="{{ path('hotels_list', {'viewType':'block'}) }}"><i class="soap-icon-block"></i></a>
+                        <a href="{{ path('hotels_list', {'viewType':'block'}) }}{% if not requestURI is empty %}?{{ requestURI }}{% endif %}"><i class="soap-icon-block"></i></a>
                     </li>
                 </ul>
             </div>
@@ -101,6 +74,8 @@
                 slide: function( event, ui ) {
                     tjq(".min-price-label").html( "$" + ui.values[ 0 ]);
                     tjq(".max-price-label").html( "$" + ui.values[ 1 ]);
+                    tjq('#max_price').val(ui.values[ 1 ]);
+                    tjq('#min_price').val(ui.values[ 0 ]);
                 }
             });
             tjq(".min-price-label").html( "$" + tjq("#price-range").slider( "values", 0 ));
@@ -112,9 +87,13 @@
                 min: 0,
                 max: 50,
                 slide: function( event, ui ) {
-
+                    tjq('#min_overall_rating').val(ui.value);
                 }
             });
+
+            tjq("#search_by_filters").on('click', function () {
+                tjq("#searchButton").click();
+            })
         });
     </script>
 {% endblock %}

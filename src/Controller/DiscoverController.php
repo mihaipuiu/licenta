@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DiscoverController extends AbstractController
+class DiscoverController extends BaseController
 {
     /**
      * @Route(path="discover/safety", name="discover_safety")
@@ -42,7 +42,8 @@ class DiscoverController extends AbstractController
 
         return $this->render('discover/safety.html.twig',  [
             'subTitle' => 'Safety',
-            'safetyTips' => $safetyTips
+            'safetyTips' => $safetyTips,
+            'searchForm' => $this->getSearchForm()->createView()
         ]);
     }
 
@@ -52,7 +53,8 @@ class DiscoverController extends AbstractController
     public function policy()
     {
         return $this->render('discover/policy.html.twig',  [
-            'subTitle' => 'Policy'
+            'subTitle' => 'Policy',
+            'searchForm' => $this->getSearchForm()->createView()
         ]);
     }
 
@@ -62,7 +64,8 @@ class DiscoverController extends AbstractController
     public function about()
     {
         return $this->render('discover/about.html.twig',  [
-            'subTitle' => 'About'
+            'subTitle' => 'About',
+            'searchForm' => $this->getSearchForm()->createView()
         ]);
     }
 
@@ -72,7 +75,8 @@ class DiscoverController extends AbstractController
     public function contact()
     {
         return $this->render('discover/contact.html.twig',  [
-            'subTitle' => 'Contact'
+            'subTitle' => 'Contact',
+            'searchForm' => $this->getSearchForm()->createView()
         ]);
     }
 }

@@ -394,7 +394,7 @@ function changerwmElementUI() {
             dateFormat: "mm/dd/yy",
             dayNamesMin: ["S", "M", "T", "W", "T", "F", "S"],
             beforeShow: function(input, inst) {
-                var themeClass = tjq(input).parent().attr("class").replace("datepicker-wrap", "");
+                var themeClass = tjq(input).parent().parent().attr("class").replace("datepicker-wrap", "");
                 tjq('#ui-datepicker-div').attr("class", "");
                 tjq('#ui-datepicker-div').addClass("ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all");
                 tjq('#ui-datepicker-div').addClass(themeClass);
