@@ -81,11 +81,9 @@
                     <div class="intro table-wrapper full-width hidden-table-sms">
                         <div class="col-sm-5 col-lg-4 features table-cell">
                             <ul>
-                                <li><label>hotel type:</label>{{ hotel.overallRating }} star</li>
-                                <li><label>Extra people:</label>No Charge</li>
+                                <li><label>hotel type:</label>{{ hotel.overallRating|round }} star</li>
                                 <li><label>Country:</label>{{ hotel.city.country.name }}</li>
                                 <li><label>City:</label>{{ hotel.city.name }}</li>
-                                <li><label>Neighborhood:</label>{{ hotel.city.region.name }}</li>
                             </ul>
                         </div>
                         <div class="col-sm-7 col-lg-8 table-cell testimonials">
@@ -217,7 +215,7 @@
                                     <li class="col-md-6"><div class="each-rating"><label>location</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallLocationRating * 20 }}%;"></div></div></div></li>
                                     <li class="col-md-6"><div class="each-rating"><label>rooms</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallRoomsRating * 20 }}%;"></div></div></div></li>
                                     <li class="col-md-6"><div class="each-rating"><label>swimming pool</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallPoolRating * 20 }}%;"></div></div></div></li>
-                                    <li class="col-md-6"><div class="each-rating"><label>fitness facility</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallFitnessRating * 20 }}%;"></div></div></div></li>
+                                    {% if hotel.hotelFacility.hasFitness %}<li class="col-md-6"><div class="each-rating"><label>fitness facility</label><div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallFitnessRating * 20 }}%;"></div></div></div></li>{% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -265,7 +263,7 @@
                             <div class="overall-rating">
                                 <h4>Your overall Rating of this property</h4>
                                 <div class="star-rating clearfix">
-                                    <div class="five-stars-container"><div class="five-stars" style="width: 80%;"></div></div>
+                                    <div class="five-stars-container"><div class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></div></div>
                                     <span class="status">VERY GOOD</span>
                                 </div>
                                 <div class="detailed-rating">
@@ -314,7 +312,7 @@
                                     <span class="pull-right">${{ hotel.averagePrice }}</span>
                                 </span>
                 <div class="feedback clearfix">
-                    <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
+                    <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></span></div>
                     <span class="review pull-right">{{ hotel.reviews|length }} reviews</span>
                 </div>
                 <p class="description">{{ hotel.shortDescription }}</p>
@@ -369,7 +367,7 @@
         });
         var map = null;
         var panorama = null;
-        var fenway = new google.maps.LatLng(44.5328904,26.0957037);
+        var fenway = new google.maps.LatLng({{ hotel.coordinates }});
         var mapOptions = {
             center: fenway,
             zoom: 12

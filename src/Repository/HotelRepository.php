@@ -17,6 +17,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class HotelRepository extends ServiceEntityRepository
 {
+    static array $mappedSortColumnNames = [
+        'name' => 'h.name',
+        'price' => 'roo.price',
+        'overallRating' => 'h.overallRating'
+    ];
+
+    public static function getColumnBySortName(string $sort)
+    {
+        return self::$mappedSortColumnNames[$sort];
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Hotel::class);
@@ -27,9 +38,19 @@ class HotelRepository extends ServiceEntityRepository
         int $minPrice = 0,
         int $maxPrice = 99999,
         float $minRating = 0.0,
-        int $guests = 0
+        int $guests = 0,
+        string $sort = 'name',
+        string $order = 'asc'
     )
     {
+        if(!in_array($sort, ['name', 'price', 'overallRating'])) {
+            throw new \Exception('Sorting error. Please insert a valid sort');
+        }
+
+        if(!in_array($order, ['asc', 'desc'])) {
+            throw new \Exception('Ordering error. Please insert a valid order for sorting');
+        }
+
         $qb = $this->createQueryBuilder('h');
         $qb->leftJoin('h.city', 'c');
         $qb->leftJoin('h.reviews', 'rev');
@@ -66,6 +87,7 @@ class HotelRepository extends ServiceEntityRepository
         }
 
         $qb->distinct();
+        $qb->orderBy(self::getColumnBySortName($sort), $order);
 
         return $qb->getQuery()->getResult();
     }

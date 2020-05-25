@@ -38,11 +38,9 @@
             <div class="sort-by-section clearfix">
                 <h4 class="sort-by-title block-sm">Sort results by:</h4>
                 <ul class="sort-bar clearfix block-sm">
-                    <li class="sort-by-name"><a class="sort-by-container" href="#"><span>name</span></a></li>
-                    <li class="sort-by-price"><a class="sort-by-container" href="#"><span>price</span></a></li>
-                    <li class="clearer visible-sms"></li>
-                    <li class="sort-by-rating active"><a class="sort-by-container" href="#"><span>rating</span></a></li>
-                    <li class="sort-by-popularity"><a class="sort-by-container" href="#"><span>popularity</span></a></li>
+                    <li class="sort-by-name {% if sort == 'name' %}active{% endif %}"><a class="sort-by-container" href="{{ path('hotels_list', {'viewType':viewType}) }}?{% if not requestURIWithoutSortNorOrder is empty %}{{ requestURIWithoutSortNorOrder }}{% endif %}&sort=name&order={% if order == 'asc' %}desc{% else %}asc{% endif %}"><span>name</span></a></li>
+                    <li class="sort-by-price {% if sort == 'price' %}active{% endif %}"><a class="sort-by-container" href="{{ path('hotels_list', {'viewType':viewType}) }}?{% if not requestURIWithoutSortNorOrder is empty %}{{ requestURIWithoutSortNorOrder }}{% endif %}&sort=price&order={% if order == 'asc' %}desc{% else %}asc{% endif %}"><span>price</span></a></li>
+                    <li class="sort-by-rating {% if sort == 'overallRating' %}active{% endif %}"><a class="sort-by-container" href="{{ path('hotels_list', {'viewType':viewType}) }}?{% if not requestURIWithoutSortNorOrder is empty %}{{ requestURIWithoutSortNorOrder }}{% endif %}&sort=overallRating&order={% if order == 'asc' %}desc{% else %}asc{% endif %}"><span>rating</span></a></li>
                 </ul>
 
                 <ul class="swap-tiles clearfix block-sm">
@@ -83,11 +81,11 @@
 
             tjq("#rating").slider({
                 range: "min",
-                value: 40,
+                value: {{ minOverallRating*20 }},
                 min: 0,
-                max: 50,
+                max: 100,
                 slide: function( event, ui ) {
-                    tjq('#min_overall_rating').val(ui.value);
+                    tjq('#min_overall_rating').val(ui.value/20);
                 }
             });
 

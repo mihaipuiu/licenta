@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Entity\HotelFacility;
-use App\Entity\Room;
 use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,25 +25,22 @@ class HotelController extends BaseController
      */
     public function list($viewType, Request $request, HotelRepository $hotelRepository)
     {
-        $form = $this->getSearchForm()->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $requestURI = explode("?", $request->getUri())[1];
-            $submittedForm = $form->getData();
-            $hotels = $hotelRepository->findHotelsByFilters(
-                $submittedForm[BaseController::NAME_FORM_FIELD],
-                $submittedForm[BaseController::MIN_PRICE_FORM_FIELD],
-                $submittedForm[BaseController::MAX_PRICE_FORM_FIELD],
-                $submittedForm[BaseController::MIN_OVERALL_RATING_FORM_FIELD],
-                $submittedForm[BaseController::GUESTS_NUMBER_FORM_FIELD]
-            );
-            $checkInDate = \DateTime::createFromFormat('m/d/Y', $submittedForm[BaseController::DATE_FROM_FORM_FIELD]);
-            $checkOutDate = \DateTime::createFromFormat('m/d/Y', $submittedForm[BaseController::DATE_TO_FORM_FIELD]);
-        } else {
-            $requestURI = '';
-            $checkInDate = null;
-            $checkOutDate = null;
-            $hotels = $hotelRepository->findHotelsByFilters();
-        }
+        $requestURIWithoutSortNorOrder = $request->query->all();
+        unset($requestURIWithoutSortNorOrder['sort']);
+        unset($requestURIWithoutSortNorOrder['order']);
+
+        $hotels = $hotelRepository->findHotelsByFilters(
+            $request->query->all()[BaseController::NAME_FORM_FIELD] ?? '',
+            $request->query->all()[BaseController::MIN_PRICE_FORM_FIELD] ?? 0,
+            $request->query->all()[BaseController::MAX_PRICE_FORM_FIELD] ?? 88888,
+            $request->query->all()[BaseController::MIN_OVERALL_RATING_FORM_FIELD] ?? 0.0,
+            $request->query->all()[BaseController::GUESTS_NUMBER_FORM_FIELD] ?? 0,
+            $request->query->all()['sort'] ?? 'name',
+            $request->query->all()['order'] ?? 'asc'
+        );
+
+        $checkInDate = !empty($request->query->all()[BaseController::DATE_FROM_FORM_FIELD]) ? \DateTime::createFromFormat('m/d/Y', $request->query->all()[BaseController::DATE_FROM_FORM_FIELD]) : null;
+        $checkOutDate = !empty($request->query->all()[BaseController::DATE_TO_FORM_FIELD]) ? \DateTime::createFromFormat('m/d/Y', $request->query->all()[BaseController::DATE_TO_FORM_FIELD]) : null;
 
         $hotels = $this->filterHotelsByCheckDate($hotels, $checkInDate, $checkOutDate);
 
@@ -55,7 +51,11 @@ class HotelController extends BaseController
             'lowestPriceRoom' => Hotel::getLowestPriceRoomOfHotels($hotels),
             'highestPriceRoom' => Hotel::getHighestPriceRoomOfHotels($hotels),
             'searchForm' => $this->getSearchForm()->createView(),
-            'requestURI' => $requestURI
+            'requestURI' => implode('&', $request->query->all()),
+            'requestURIWithoutSortNorOrder' => implode('&', $requestURIWithoutSortNorOrder),
+            'minOverallRating' => $request->query->all()[BaseController::MIN_OVERALL_RATING_FORM_FIELD] ?? 0.0,
+            'sort' => $request->query->all()['sort'] ?? 'name',
+            'order' => $request->query->all()['order'] ?? 'asc'
         ]);
     }
 
@@ -81,8 +81,8 @@ class HotelController extends BaseController
             $entityManager->persist($facility);
             $entityManager->flush();
             $hotel->setHotelFacility($facility);
-
         }
+
         return $this->render('hotels/hotel_detailed.html.twig', [
             'subTitle' => $hotel->getName(),
             'hotel' => $hotel,

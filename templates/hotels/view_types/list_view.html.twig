@@ -11,15 +11,15 @@
                         <div>
                             <h4 class="box-title">{{ hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ hotel.city.name }}, {{ hotel.city.country.name }}</small></h4>
                             <div class="amenities">
-                                <i class="soap-icon-wifi circle"></i>
-                                <i class="soap-icon-fitnessfacility circle"></i>
-                                <i class="soap-icon-fork circle"></i>
-                                <i class="soap-icon-television circle"></i>
+                                {% if hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasRestaurant %}<i class="soap-icon-fork circle"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasTv %}<i class="soap-icon-television circle"></i>{% endif %}
                             </div>
                         </div>
                         <div>
                             <div class="five-stars-container">
-                                <span class="five-stars" style="width: 80%;"></span>
+                                <span class="five-stars" style="width: {{ hotel.overallRating * 20 }}%;"></span>
                             </div>
                             <span class="review">{{ hotel.reviews|length }} reviews</span>
                         </div>

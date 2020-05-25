@@ -41,7 +41,8 @@ abstract class BaseController extends AbstractController
                         'placeholder' => 'Where do you want to go?',
                         'class' => 'input-text white-bg full-width where'
                     ],
-                    'label' => false
+                    'label' => false,
+                    'required' => false
                 ])
                 ->add(self::DATE_FROM_FORM_FIELD, TextType::class, [
                     'attr' => [
@@ -49,14 +50,16 @@ abstract class BaseController extends AbstractController
                         'placeholder' => 'Check In',
                         'name' => 'date_from'
                     ],
-                    'label' => false
+                    'label' => false,
+                    'required' => false
                 ])
                 ->add(self::DATE_TO_FORM_FIELD, TextType::class, [
                     'attr' => [
                         'class' => 'input-text white-bg full-width check-out',
                         'placeholder' => 'Check Out'
                     ],
-                    'label' => false
+                    'label' => false,
+                    'required' => false
                 ])
                 ->add(self::MIN_OVERALL_RATING_FORM_FIELD, TextType::class, [
                     'attr' => [
