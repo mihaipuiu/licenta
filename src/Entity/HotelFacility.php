@@ -38,6 +38,11 @@ class HotelFacility
     private bool $hasTv;
 
     /**
+     * @ORM\Column(type="boolean", options={"default":true})
+     */
+    private bool $hasPool;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Hotel")
      */
     private Hotel $hotel;
@@ -109,6 +114,22 @@ class HotelFacility
     public function setHasTv(bool $hasTv): void
     {
         $this->hasTv = $hasTv;
+    }
+
+    /**
+     * @return bool
+     */
+    public function  getHasPool(): bool
+    {
+        return $this->hasPool;
+    }
+
+    /**
+     * @param bool $hasPool
+     */
+    public function setHasPool(bool $hasPool): void
+    {
+        $this->hasPool = $hasPool;
     }
 
     /**

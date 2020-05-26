@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\ContactMessage;
+use App\FormGenerator\ContactUsFormGenerator;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DiscoverController extends BaseController
@@ -71,12 +75,36 @@ class DiscoverController extends BaseController
 
     /**
      * @Route(path="discover/contact", name="discover_contact")
+     *
+     * @param Request $request
+     * @param ContactUsFormGenerator $contactUsFormGenerator
+     *
+     * @return Response
      */
-    public function contact()
+    public function contact(Request $request, ContactUsFormGenerator $contactUsFormGenerator, EntityManagerInterface $entityManager)
     {
+        $contactForm = $contactUsFormGenerator->generateForm()
+            ->setAction($this->generateUrl('discover_contact'))
+            ->setMethod(Request::METHOD_POST)
+            ->getForm();
+
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            /** @var ContactMessage $contactMessage */
+            $contactMessage = $contactForm->getData();
+
+            $entityManager->persist($contactMessage);
+            $entityManager->flush();
+
+            $messageSent = true;
+        }
+
         return $this->render('discover/contact.html.twig',  [
             'subTitle' => 'Contact',
-            'searchForm' => $this->getSearchForm()->createView()
+            'searchForm' => $this->getSearchForm()->createView(),
+            'contactForm' => $contactForm->createView(),
+            'messageSent' => $messageSent ?? false
         ]);
     }
 }

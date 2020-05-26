@@ -90,7 +90,7 @@
             });
 
             tjq("#search_by_filters").on('click', function () {
-                tjq("#searchButton").click();
+                tjq("#{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::SEARCH_BUTTON_NAME') }}").click();
             })
         });
     </script>

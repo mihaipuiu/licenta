@@ -11,10 +11,11 @@
                         <div>
                             <h4 class="box-title">{{ hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ hotel.city.name }}, {{ hotel.city.country.name }}</small></h4>
                             <div class="amenities">
-                                {% if hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle"></i>{% endif %}
-                                {% if hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle"></i>{% endif %}
-                                {% if hotel.hotelFacility.hasRestaurant %}<i class="soap-icon-fork circle"></i>{% endif %}
-                                {% if hotel.hotelFacility.hasTv %}<i class="soap-icon-television circle"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle" title="WiFi"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle" title="FITNESS"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasRestaurant %}<i class="soap-icon-fork circle" title="RESTAURANT"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasTv %}<i class="soap-icon-television circle" title="TV"></i>{% endif %}
+                                {% if hotel.hotelFacility.hasPool %}<i class="soap-icon-swimming circle" title="SWIMMING POOL"></i></i>{% endif %}
                             </div>
                         </div>
                         <div>

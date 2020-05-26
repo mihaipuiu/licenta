@@ -26,62 +26,62 @@ class HotelReview
     /**
      * @ORM\Column(type="decimal", precision=2, scale=1)
      */
-    private float $overallRating;
+    private float $overallRating=0.0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $serviceRating;
+    private int $serviceRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $sleepRating;
+    private int $sleepRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $locationRating;
+    private int $locationRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $poolRating;
+    private int $poolRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $valueRating;
+    private int $valueRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $cleanlinessRating;
+    private int $cleanlinessRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $roomsRating;
+    private int $roomsRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $fitnessRating;
+    private int $fitnessRating=0;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $title;
+    private string $title='';
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    private string $description='';
 
     /**
      * @ORM\Column(type="string")
      */
-    private string $reviewerName;
+    private string $reviewerName='';
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})

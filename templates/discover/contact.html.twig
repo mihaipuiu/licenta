@@ -1,0 +1,86 @@
+{% extends 'base/base.html.twig' %}
+{% block content %}
+    <div class="rwm-google-map block"></div>
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="rwm-box contact-us-box">
+                <h4>Contact us</h4>
+                <ul class="contact-address">
+                    <li class="address">
+                        <i class="soap-icon-address circle"></i>
+                        <h5 class="title">Address</h5>
+                        <p>Bucharest, Romania</p>
+                        <p>Str. Drumul Padurea Neagra</p>
+                    </li>
+                    <li class="phone">
+                        <i class="soap-icon-phone circle"></i>
+                        <h5 class="title">Phone</h5>
+                        <p>Mobile: +40 727 856 620</p>
+                    </li>
+                    <li class="email">
+                        <i class="soap-icon-message circle"></i>
+                        <h5 class="title">Email</h5>
+                        <p>mihai.puiu@s.utm.ro</p>
+                        <p>puiu_mihai.valentin@yahoo.com</p>
+                    </li>
+                </ul>
+                <ul class="social-icons full-width">
+                    <li><a href="https://www.facebook.com/mihaivalentin.puiu" data-toggle="tooltip" title="Facebook"><i class="soap-icon-facebook"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/mihai-valentin-puiu-35b391b1/" data-toggle="tooltip" title="Linkedin"><i class="soap-icon-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <div class="rwm-box">
+                {{ form_start(contactForm) }}
+                    <h4 class="box-title">Send us a Message</h4>
+                    {% if messageSent %}
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Message sent!</h4>
+                            <p>Aww yeah, you successfully sent this important message. We will get to your message as soon as possible; and even contact you if necessary.</p><hr><p class="mb-0">Meanwhile, if you have a really urgent issue, please feel free to contact us via the phone.</p>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    {% endif %}
+                    <div class="row form-group">
+                        <div class="col-xs-6">
+                            {{ form_row(contactForm.name) }}
+                        </div>
+                        <div class="col-xs-6">
+                            {{ form_row(contactForm.email) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(contactForm.description) }}
+                    </div>
+                {{ form_end(contactForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type='text/javascript' src="https://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+    <script type="text/javascript" src="{{ asset('js/gmap3.min.js') }}"></script>
+    <script type="text/javascript">
+        tjq('.alert').alert()
+        tjq(".rwm-google-map").gmap3({
+            map: {
+                options: {
+                    center: [44.5328904,26.0957037],
+                    zoom: 12
+                }
+            },
+            marker:{
+                values: [
+                    {latLng:[44.5328904,26.0957037], data:"Runaway With Me Office"}
+
+                ],
+                options: {
+                    draggable: false
+                },
+            }
+        });
+    </script>
+{% endblock %}

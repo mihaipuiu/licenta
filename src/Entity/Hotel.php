@@ -335,7 +335,7 @@ class Hotel
         return $this->overallRating;
     }
 
-    public function getOverallRatingFromRooms(): float
+    public function getOverallRatingFromReviews(): float
     {
         $rating = 0.0;
 
@@ -481,18 +481,11 @@ class Hotel
 
     public function getLastThreeReviews(): ArrayCollection
     {
-        $reviews = new ArrayCollection();
-        $i = 0;
-        /** @var HotelReview $review */
-        foreach($this->reviews as $review) {
-            $i++;
-            if($i>3) {
-                break;
-            }
-            $reviews->add($review);
-        }
-
-        return $reviews;
+        return new ArrayCollection([
+            $this->reviews->get(count($this->reviews)-1),
+            $this->reviews->get(count($this->reviews)-2),
+            $this->reviews->get(count($this->reviews)-3)
+        ]);
     }
 
     public function getLowestPriceRoom(): Room
@@ -574,6 +567,6 @@ class Hotel
      */
     public function prePersist()
     {
-        $this->overallRating = $this->getOverallRatingFromRooms();
+        $this->overallRating = $this->getOverallRatingFromReviews();
     }
 }

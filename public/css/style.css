@@ -1926,7 +1926,6 @@ button.btn-extra.yellow > span em, input[type="button"].button.btn-extra.yellow 
   border-radius: 0 0 0 0;
   border: none;
   padding: 15px 15px 15px 70px;
-  color: #fff;
   font-size: 1.0833em;
   position: relative;
 }
@@ -5422,6 +5421,7 @@ ul.check-circle li:before {
 }
 .author img {
   -webkit-backface-visibility: visible;
+  background-color: gray;
 }
 
 .testimonial .slides > li {
@@ -8615,6 +8615,7 @@ ul.search-tabs li.active a {
 .guest-review .author img {
   width: 100%;
   height: 100%;
+  background-color: gray;
 }
 .guest-review .author .name {
   color: #2d3e52;
