@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -53,6 +54,11 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="user")
+     */
+    private PersistentCollection $roomOccupations;
 
     public function getId(): ?int
     {
@@ -175,6 +181,29 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getRoomOccupations(): PersistentCollection
+    {
+        return $this->roomOccupations;
+    }
+
+    /**
+     * @param PersistentCollection $roomOccupations
+     */
+    public function setRoomOccupations(PersistentCollection $roomOccupations): void
+    {
+        $this->roomOccupations = $roomOccupations;
+    }
+
+    public function addRoomOccupation(RoomOccupation $roomOccupation): self
+    {
+        $this->roomOccupations->add($roomOccupation);
 
         return $this;
     }

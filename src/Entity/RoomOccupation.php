@@ -38,6 +38,11 @@ class RoomOccupation
      */
     private DateTime $bookDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="roomOccupations")
+     */
+    private User $user;
+
     public function __construct()
     {
         $this->bookDate = new DateTime();
@@ -110,5 +115,21 @@ class RoomOccupation
     public function setBookDate(DateTime $bookDate): void
     {
         $this->bookDate = $bookDate;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 }
