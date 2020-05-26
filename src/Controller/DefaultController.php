@@ -211,6 +211,7 @@ class DefaultController extends BaseController
 //
 //
 //        $entityManager->flush();
+//        dd($this->getUser());
         return $this->render('homepage/homepage.html.twig', [
             'subTitle' => 'Home',
             'searchForm' => $this->getSearchForm()->createView()
