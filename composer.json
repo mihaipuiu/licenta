@@ -5,6 +5,8 @@
         "php": "7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "knpuniversity/oauth2-client-bundle": "^2.1",
+        "league/oauth2-facebook": "^2.0",
         "sensio/framework-extra-bundle": "^5.5",
         "sensiolabs/security-checker": "^6.0",
         "symfony/asset": "5.0.*",
@@ -14,13 +16,14 @@
         "symfony/form": "5.0.*",
         "symfony/framework-bundle": "5.0.*",
         "symfony/mailer": "5.0.*",
-        "symfony/maker-bundle": "^1.18",
         "symfony/orm-pack": "^1.0",
+        "symfony/security-bundle": "5.0.*",
         "symfony/twig-pack": "^1.0",
         "symfony/yaml": "5.0.*",
         "twig/intl-extra": "^3.0"
     },
     "require-dev": {
+        "symfony/maker-bundle": "^1.18",
         "symfony/profiler-pack": "^1.0"
     },
     "config": {
