@@ -17,37 +17,37 @@ class City
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Region", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region", cascade={"all"}, fetch="EAGER")
      */
-    private Region $region;
+    protected Region $region;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", cascade={"all"}, fetch="EAGER")
      */
-    private Country $country;
+    protected Country $country;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=8)
      */
-    private float $latitude;
+    protected float $latitude;
 
     /**
      * @ORM\Column(type="decimal", precision=11, scale=8)
      */
-    private float $longitude;
+    protected float $longitude;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="city", cascade={"persist", "remove", "merge"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="city", cascade={"persist", "remove", "merge"}, fetch="EAGER")
      */
-    private PersistentCollection $hotels;
+    protected PersistentCollection $hotels;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $name;
+    protected string $name;
 
     public function getId(): ?int
     {

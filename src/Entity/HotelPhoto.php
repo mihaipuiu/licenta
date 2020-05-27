@@ -15,7 +15,7 @@ class HotelPhoto
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     public function getId(): ?int
     {
@@ -25,12 +25,12 @@ class HotelPhoto
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="hotelPhotos")
      */
-    private Hotel $hotel;
+    protected Hotel $hotel;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private string $photoFilename;
+    protected string $photoFilename;
 
     /**
      * @return Hotel

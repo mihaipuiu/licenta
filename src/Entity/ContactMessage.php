@@ -16,27 +16,27 @@ class ContactMessage
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    protected ?int $id;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $name='';
+    protected string $name='';
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $email='';
+    protected string $email='';
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description='';
+    protected string $description='';
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
      */
-    private DateTime $created;
+    protected DateTime $created;
 
     public function __construct()
     {

@@ -18,7 +18,7 @@ class HotelSearchFormGenerator extends BaseFormGenerator
     const MAX_PRICE_FORM_FIELD = 'max_price';
     const SEARCH_BUTTON_NAME = 'search';
 
-    public function generateForm(): FormBuilderInterface
+    public function generateForm($data = null): FormBuilderInterface
     {
         return $this->getFormFactory()->createNamedBuilder('')
             ->add(self::NAME_FORM_FIELD, TextType::class, [

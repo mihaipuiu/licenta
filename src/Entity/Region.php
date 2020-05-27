@@ -15,22 +15,22 @@ class Region
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    private string $name;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private string $code;
+    protected string $code;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Country", cascade={"all"})
      */
-    private Country $country;
+    protected Country $country;
 
     /**
      * @return int

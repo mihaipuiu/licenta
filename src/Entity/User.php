@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -17,48 +19,58 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="string", length=180, nullable=true)
      */
-    private $facebookId;
+    protected $facebookId;
 
     /**
      * @ORM\Column(type="string", length=180)
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @ORM\Column(type="string", length=180)
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $pictureUrl;
+    protected $pictureUrl;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    protected $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    protected $password;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected DateTime $created;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected DateTime $updated;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="user")
      */
-    private PersistentCollection $roomOccupations;
+    protected PersistentCollection $roomOccupations;
 
     public function getId(): ?int
     {
@@ -201,11 +213,36 @@ class User implements UserInterface
         $this->roomOccupations = $roomOccupations;
     }
 
-    public function addRoomOccupation(RoomOccupation $roomOccupation): self
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime
     {
-        $this->roomOccupations->add($roomOccupation);
+        return $this->created;
+    }
 
-        return $this;
+    /**
+     * @param DateTime $created
+     */
+    public function setCreated(DateTime $created): void
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @param DateTime $updated
+     */
+    public function setUpdated(DateTime $updated): void
+    {
+        $this->updated = $updated;
     }
 
     /**
@@ -223,5 +260,22 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        $this->created = new DateTime();
+        $this->updated = new DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->updated = new DateTime();
     }
 }

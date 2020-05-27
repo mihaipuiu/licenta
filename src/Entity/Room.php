@@ -16,42 +16,42 @@ class Room
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="rooms")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="rooms", fetch="EAGER")
      */
-    private Hotel $hotel;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private string $title;
+    protected Hotel $hotel;
 
     /**
      * @ORM\Column(type="string")
      */
-    private string $subtitle;
+    protected string $title;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected string $subtitle;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    protected string $description;
 
     /**
      * @ORM\Column(type="smallint")
      */
-    private int $maxGuests;
+    protected int $maxGuests;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private int $price;
+    protected int $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="room", fetch="EAGER")
      */
-    private PersistentCollection $roomOccupations;
+    protected PersistentCollection $roomOccupations;
 
     public function getId(): ?int
     {

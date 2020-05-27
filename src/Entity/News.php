@@ -15,22 +15,22 @@ class News
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    protected ?int $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    private string $subtitle;
+    protected string $subtitle;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description;
+    protected string $description;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
      */
-    private \DateTime $created;
+    protected \DateTime $created;
 
     public function getId(): ?int
     {

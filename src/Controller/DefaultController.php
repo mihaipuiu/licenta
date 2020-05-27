@@ -214,7 +214,8 @@ class DefaultController extends BaseController
 //        dd($this->getUser());
         return $this->render('homepage/homepage.html.twig', [
             'subTitle' => 'Home',
-            'searchForm' => $this->getSearchForm()->createView()
+            'searchForm' => $this->getSearchForm()->createView(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -224,5 +225,13 @@ class DefaultController extends BaseController
     public function slideshowPopup()
     {
         return $this->render('slideshow/slideshow-popup.html.twig');
+    }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 }

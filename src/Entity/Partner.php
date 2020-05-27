@@ -19,32 +19,32 @@ class Partner
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private string $name;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private string $url;
+    protected string $url;
 
     /**
      * @ORM\Column(type="smallint", options={"default":1})
      */
-    private int $status;
+    protected int $status;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="partner", cascade={"persist", "remove", "merge"})
      */
-    private PersistentCollection $hotels;
+    protected PersistentCollection $hotels;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
      */
-    private DateTime $created;
+    protected DateTime $created;
 
     public function __construct()
     {

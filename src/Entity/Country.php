@@ -15,17 +15,17 @@ class Country
      * @ORM\GeneratedValue()
      * @ORM\Column(type="smallint", length=5)
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    private string $name;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private string $code;
+    protected string $code;
 
     public function getId(): ?int
     {

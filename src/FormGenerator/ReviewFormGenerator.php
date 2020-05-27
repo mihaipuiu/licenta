@@ -2,6 +2,7 @@
 namespace App\FormGenerator;
 
 use App\Entity\HotelReview;
+use App\Exception\InvalidDataClassException;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,11 +27,14 @@ class ReviewFormGenerator extends BaseFormGenerator
     const SUBMIT_REVIEW_BUTTON = 'submit_review';
     const RATING_FIELD_ID = 'rating_field_id_';
 
-    function generateForm(): FormBuilderInterface
+    function generateForm($data = null): FormBuilderInterface
     {
+        if(!($data instanceof HotelReview)) {
+            throw new InvalidDataClassException();
+        }
         return $this->getFormFactory()->createBuilder(
             FormType::class,
-            new HotelReview(),
+            $data,
             ['attr' =>
                     ['class' => 'review-form']])
             ->add(self::SERVICE_RATING_REVIEW_FIELD, NumberType::class, [

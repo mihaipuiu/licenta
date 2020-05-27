@@ -47,7 +47,8 @@ class DiscoverController extends BaseController
         return $this->render('discover/safety.html.twig',  [
             'subTitle' => 'Safety',
             'safetyTips' => $safetyTips,
-            'searchForm' => $this->getSearchForm()->createView()
+            'searchForm' => $this->getSearchForm()->createView(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -58,7 +59,8 @@ class DiscoverController extends BaseController
     {
         return $this->render('discover/policy.html.twig',  [
             'subTitle' => 'Policy',
-            'searchForm' => $this->getSearchForm()->createView()
+            'searchForm' => $this->getSearchForm()->createView(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -69,7 +71,8 @@ class DiscoverController extends BaseController
     {
         return $this->render('discover/about.html.twig',  [
             'subTitle' => 'About',
-            'searchForm' => $this->getSearchForm()->createView()
+            'searchForm' => $this->getSearchForm()->createView(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -83,7 +86,7 @@ class DiscoverController extends BaseController
      */
     public function contact(Request $request, ContactUsFormGenerator $contactUsFormGenerator, EntityManagerInterface $entityManager)
     {
-        $contactForm = $contactUsFormGenerator->generateForm()
+        $contactForm = $contactUsFormGenerator->generateForm(new ContactMessage())
             ->setAction($this->generateUrl('discover_contact'))
             ->setMethod(Request::METHOD_POST)
             ->getForm();
@@ -104,7 +107,8 @@ class DiscoverController extends BaseController
             'subTitle' => 'Contact',
             'searchForm' => $this->getSearchForm()->createView(),
             'contactForm' => $contactForm->createView(),
-            'messageSent' => $messageSent ?? false
+            'messageSent' => $messageSent ?? false,
+            'user' => $this->getUser()
         ]);
     }
 }

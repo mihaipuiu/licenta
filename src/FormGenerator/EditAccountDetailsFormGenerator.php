@@ -1,25 +1,25 @@
 <?php
 namespace App\FormGenerator;
 
-use App\Entity\ContactMessage;
+use App\Entity\User;
 use App\Exception\InvalidDataClassException;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ContactUsFormGenerator extends BaseFormGenerator
+class EditAccountDetailsFormGenerator extends BaseFormGenerator
 {
     const EMAIL_FIELD = 'email';
-    const NAME_FIELD = 'name';
-    const MESSAGE_FIELD = 'description';
-    const SEND_MESSAGE_BUTTON = 'send_message';
+    const FIRST_NAME_FIELD = 'first_name';
+    const LAST_NAME_FIELD = 'last_name';
+    const SAVE_BUTTON = 'save';
 
     function generateForm($data = null): FormBuilderInterface
     {
-        if(!($data instanceof ContactMessage)) {
+        /** User $data */
+        if(!($data instanceof User)) {
             throw new InvalidDataClassException();
         }
 
@@ -28,30 +28,32 @@ class ContactUsFormGenerator extends BaseFormGenerator
             $data,
             ['attr' =>
                 ['class' => 'contact-form']])
-            ->add(self::NAME_FIELD, TextType::class, [
+            ->add(self::FIRST_NAME_FIELD, TextType::class, [
                 'attr' => [
-                    'placeholder' => 'your name',
+                    'placeholder' => 'your first name',
                     'class' => 'input-text full-width'
                 ],
-                'label' => 'Your name',
+                'label' => 'First Name',
+                'empty_data' => $data->getFirstName(),
+            ])
+            ->add(self::LAST_NAME_FIELD, TextType::class, [
+                'attr' => [
+                    'placeholder' => 'your last name',
+                    'class' => 'input-text full-width'
+                ],
+                'label' => 'Last Name',
+                'empty_data' => $data->getLastName(),
             ])
             ->add(self::EMAIL_FIELD, EmailType::class, [
                 'attr' => [
                     'placeholder' => 'enter your email address',
                     'class' => 'input-text full-width'
                 ],
-                'label' => 'Your Email'
+                'label' => 'Email',
+                'empty_data' => $data->getEmail(),
+
             ])
-            ->add(self::MESSAGE_FIELD, TextareaType::class, [
-                'attr' => [
-                    'placeholder' => 'write your message here',
-                    'class' => 'input-text full-width',
-                    'rows' => 6,
-                    'minlength' => 10
-                ],
-                'label' => 'Your message'
-            ])
-            ->add(self::SEND_MESSAGE_BUTTON, SubmitType::class, ['attr' => [
+            ->add(self::SAVE_BUTTON, SubmitType::class, ['attr' => [
                 'class' => 'btn-large full-width'
             ]])
             ;

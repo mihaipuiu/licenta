@@ -58,7 +58,8 @@ class HotelController extends BaseController
             'requestURIWithoutSortNorOrder' => implode('&', $requestURIWithoutSortNorOrder),
             'minOverallRating' => $request->query->all()[HotelSearchFormGenerator::MIN_OVERALL_RATING_FORM_FIELD] ?? 0.0,
             'sort' => $request->query->all()['sort'] ?? 'name',
-            'order' => $request->query->all()['order'] ?? 'asc'
+            'order' => $request->query->all()['order'] ?? 'asc',
+            'user' => $this->getUser()
         ]);
     }
 
@@ -88,7 +89,7 @@ class HotelController extends BaseController
             $hotel->setHotelFacility($facility);
         }
 
-        $form = $reviewFormGenerator->generateForm()
+        $form = $reviewFormGenerator->generateForm(new HotelReview())
             ->setAction($this->generateUrl('hotel_detailed', ['id' => $hotel->getId()]))
             ->setMethod(Request::METHOD_POST)
             ->getForm();
@@ -108,7 +109,8 @@ class HotelController extends BaseController
             'subTitle' => $hotel->getName(),
             'hotel' => $hotel,
             'searchForm' => $this->getSearchForm()->createView(),
-            'reviewForm' => $form->createView()
+            'reviewForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
 
     }

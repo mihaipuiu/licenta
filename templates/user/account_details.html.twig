@@ -1,0 +1,140 @@
+{% extends 'base/base.html.twig' %}
+{% block content %}
+    {% if message %}
+        {% if success is same as(true) %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% elseif success is same as(false) %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endif %}
+    <div id="hotel-features" class="tab-container">
+        <ul class="tabs">
+            <li class="active"><a href="#account-details" data-toggle="tab">Account details</a></li>
+            <li><a href="#my-bookings" data-toggle="tab">My Bookings</a></li>
+            <li><a href="#edit-account-details" data-toggle="tab">Edit profile</a></li>
+            <li><a href="#change-password" data-toggle="tab">Change password</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="account-details">
+                <div class="intro table-wrapper full-width hidden-table-sms">
+                    <div class="table-row col-sm-12">
+                        <div class="booking-details">
+                            <h2>About me</h2>
+                        </div>
+                    </div>
+                    <div class="table-row col-sm-12">
+                        <div class="edit-profile">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="my-bookings">
+                <div class="intro table-wrapper full-width hidden-table-sms">
+                    <div class="table-row col-sm-12">
+                        <div class="booking-details">
+                            <h2>My Bookings</h2>
+                        </div>
+                    </div>
+                    <div class="hotel-list listing-style3 hotel">
+                        {% for roomOccupation in roomOccupations %}
+                            <article class="box">
+                                <figure class="col-sm-4 col-md-3">
+                                    <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="{{ asset(roomOccupation.room.hotel.hotelPhotos.first.photoFilename) }}"></a>
+                                </figure>
+                                <div class="details col-sm-2 col-md-2">
+                                    <h5>Starting: </h5><small>{{ roomOccupation.startDate|format_datetime }}</small>
+                                    <hr />
+                                    <h5>Ending: </h5><small>{{ roomOccupation.endDate|format_datetime }}</small>
+                                    <hr />
+                                    <h5>Booked on: </h5><small>{{ roomOccupation.bookDate|format_datetime }}</small>
+                                    {% if not roomOccupation.hasRoomOccupationStarted %}<hr /><a class="btn-danger btn" title="" href="{{ path('cancel_booking', {'id':roomOccupation.id}) }}">CANCEL</a>{% endif %}
+                                </div>
+                                <div class="details col-sm-6 col-md-7">
+                                    <div>
+                                        <div>
+                                            <h4 class="box-title">{{ roomOccupation.room.hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ roomOccupation.room.hotel.city.name }}, {{ roomOccupation.room.hotel.city.country.name }}</small></h4>
+                                            <div class="amenities">
+                                                {% if roomOccupation.room.hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle" title="WiFi"></i>{% endif %}
+                                                {% if roomOccupation.room.hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle" title="FITNESS"></i>{% endif %}
+                                                {% if roomOccupation.room.hotel.hotelFacility.hasRestaurant %}<i class="soap-icon-fork circle" title="RESTAURANT"></i>{% endif %}
+                                                {% if roomOccupation.room.hotel.hotelFacility.hasTv %}<i class="soap-icon-television circle" title="TV"></i>{% endif %}
+                                                {% if roomOccupation.room.hotel.hotelFacility.hasPool %}<i class="soap-icon-swimming circle" title="SWIMMING POOL"></i></i>{% endif %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="five-stars-container">
+                                                <span class="five-stars" style="width: {{ roomOccupation.room.hotel.overallRating * 20 }}%;"></span>
+                                            </div>
+                                            <span class="review">{{ roomOccupation.room.hotel.reviews|length }} reviews</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p>{{ roomOccupation.room.hotel.shortDescription }}</p>
+                                        <div>
+                                            <span class="price"><small>ROOM PRICE</small>${{ roomOccupation.room.price }}</span>
+                                            <a class="button btn-small full-width text-center" title="" href="{{ path('hotel_detailed', {'id':roomOccupation.room.hotel.id}) }}">SELECT</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="edit-account-details">
+                <div class="intro table-wrapper full-width hidden-table-sms">
+                    <div class="table-row col-lg-12">
+                        <div class="edit-profile">
+                            <h2>Change Account Details</h2>
+                        </div>
+                    </div>
+                    {{ form_start(editDetailsForm) }}
+                    <div class="form-group">
+                        {{ form_row(editDetailsForm.first_name) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(editDetailsForm.last_name) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(editDetailsForm.email) }}
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        {{ form_row(editDetailsForm.save) }}
+                    </div>
+                    {{ form_end(editDetailsForm) }}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="change-password">
+                <div class="intro table-wrapper full-width hidden-table-sms">
+                    <div class="table-row col-lg-12">
+                        <div class="edit-profile">
+                            <h2>Change password</h2>
+                        </div>
+                    </div>
+                    {{ form_start(changePasswordForm) }}
+                    <div class="form-group">
+                        {{ form_row(changePasswordForm.old_password) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(changePasswordForm.new_password.first) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(changePasswordForm.new_password.second) }}
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        {{ form_row(changePasswordForm.save) }}
+                    </div>
+                    {{ form_end(changePasswordForm) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

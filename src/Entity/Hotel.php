@@ -19,77 +19,77 @@ class Hotel
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private string $name;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", length=200)
      */
-    private string $address;
+    protected string $address;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private string $coordinates;
+    protected string $coordinates;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private string $phone;
+    protected string $phone;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $shortDescription;
+    protected string $shortDescription;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $fullDescription;
+    protected string $fullDescription;
 
     /**
      * @ORM\Column(type="decimal", precision=2, scale=1)
      */
-    private float $overallRating;
+    protected float $overallRating;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\HotelFacility", mappedBy="hotel")
+     * @ORM\OneToOne(targetEntity="App\Entity\HotelFacility", mappedBy="hotel", fetch="EAGER")
      */
-    private HotelFacility $hotelFacility;
+    protected HotelFacility $hotelFacility;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="hotel")
+     * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="hotel", fetch="EAGER")
      */
-    private PersistentCollection $rooms;
+    protected PersistentCollection $rooms;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\HotelReview", mappedBy="hotel")
+     * @ORM\OneToMany(targetEntity="App\Entity\HotelReview", mappedBy="hotel", fetch="EAGER")
      */
-    private PersistentCollection $reviews;
+    protected PersistentCollection $reviews;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\City")
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", fetch="EAGER")
      */
-    private City $city;
+    protected City $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", cascade={"all"}, inversedBy="hotels")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", cascade={"all"}, inversedBy="hotels", fetch="EAGER")
      */
-    private Partner $partner;
+    protected Partner $partner;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\HotelPhoto", mappedBy="hotel")
+     * @ORM\OneToMany(targetEntity="App\Entity\HotelPhoto", mappedBy="hotel", fetch="EAGER")
      */
-    private PersistentCollection $hotelPhotos;
+    protected PersistentCollection $hotelPhotos;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
      */
-    private DateTime $created;
+    protected DateTime $created;
 
     public function __construct()
     {

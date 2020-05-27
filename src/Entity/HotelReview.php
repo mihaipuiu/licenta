@@ -16,77 +16,77 @@ class HotelReview
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="reviews")
      */
-    private Hotel $hotel;
+    protected Hotel $hotel;
 
     /**
      * @ORM\Column(type="decimal", precision=2, scale=1)
      */
-    private float $overallRating=0.0;
+    protected float $overallRating=0.0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $serviceRating=0;
+    protected int $serviceRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $sleepRating=0;
+    protected int $sleepRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $locationRating=0;
+    protected int $locationRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $poolRating=0;
+    protected int $poolRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $valueRating=0;
+    protected int $valueRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $cleanlinessRating=0;
+    protected int $cleanlinessRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $roomsRating=0;
+    protected int $roomsRating=0;
 
     /**
      * @ORM\Column(type="smallint", length=1)
      */
-    private int $fitnessRating=0;
+    protected int $fitnessRating=0;
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $title='';
+    protected string $title='';
 
     /**
      * @ORM\Column(type="text")
      */
-    private string $description='';
+    protected string $description='';
 
     /**
      * @ORM\Column(type="string")
      */
-    private string $reviewerName='';
+    protected string $reviewerName='';
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
      */
-    private DateTime $created;
+    protected DateTime $created;
 
     public function __construct()
     {

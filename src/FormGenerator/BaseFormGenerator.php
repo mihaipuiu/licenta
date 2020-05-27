@@ -19,5 +19,5 @@ abstract class BaseFormGenerator
         return $this->formFactory;
     }
 
-    abstract function generateForm(): FormBuilderInterface;
+    abstract function generateForm($data = null): FormBuilderInterface;
 }

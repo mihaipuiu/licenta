@@ -50,8 +50,13 @@
                         </ul>
                     </nav>
                     <ul class="quick-menu pull-right">
+                        {% if not user %}
                         <li><a href="#rwm-login" class="soap-popupbox">LOGIN</a></li>
                         <li><a href="#rwm-signup" class="soap-popupbox">SIGNUP</a></li>
+                        {% else %}
+                            <li><a href="{{ path('user_account') }}">ACCOUNT</a></li>
+                            <li><a href="{{ path('app_logout') }}">LOGOUT</a></li>
+                        {% endif %}
                     </ul>
 
                 </div>
@@ -106,10 +111,10 @@
                     </ul>
                 </nav>
             </div>
+            {% if not user %}
             <div id="rwm-signup" class="rwm-signup-box rwm-box">
                 <div class="login-social">
                     <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
-                    <a href="#" class="button login-googleplus"><i class="soap-icon-googleplus"></i>Login with Google+</a>
                 </div>
                 <div class="seperator"><label>OR</label></div>
                 <div class="simple-signup">
@@ -154,7 +159,6 @@
             <div id="rwm-login" class="rwm-login-box rwm-box">
                 <div class="login-social">
                     <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
-                    <a href="#" class="button login-googleplus"><i class="soap-icon-googleplus"></i>Login with Google+</a>
                 </div>
                 <div class="seperator"><label>OR</label></div>
                 <form>
@@ -176,6 +180,7 @@
                 <div class="seperator"></div>
                 <p>Don't have an account? <a href="#rwm-signup" class="goto-signup soap-popupbox">Sign up</a></p>
             </div>
+            {% endif %}
         </header>
         <div class="page-title-container">
             <div class="container">

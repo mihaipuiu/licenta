@@ -16,32 +16,32 @@ class RoomOccupation
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="roomOccupations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="roomOccupations", fetch="EAGER")
      */
-    private Room $room;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private DateTime $startDate;
+    protected Room $room;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private DateTime $endDate;
+    protected DateTime $startDate;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private DateTime $bookDate;
+    protected DateTime $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="roomOccupations")
+     * @ORM\Column(type="datetime")
      */
-    private User $user;
+    protected DateTime $bookDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="roomOccupations", fetch="EAGER")
+     */
+    protected User $user;
 
     public function __construct()
     {
@@ -131,5 +131,13 @@ class RoomOccupation
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasRoomOccupationStarted(): bool
+    {
+        return $this->startDate < new \DateTime();
     }
 }

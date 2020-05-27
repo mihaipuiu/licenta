@@ -15,37 +15,37 @@ class HotelFacility
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private bool $hasRestaurant;
+    protected bool $hasRestaurant;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private bool $hasFitness;
+    protected bool $hasFitness;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private bool $hasWifi;
+    protected bool $hasWifi;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private bool $hasTv;
+    protected bool $hasTv;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    private bool $hasPool;
+    protected bool $hasPool;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Hotel")
      */
-    private Hotel $hotel;
+    protected Hotel $hotel;
 
     public function getId(): ?int
     {
