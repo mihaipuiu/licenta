@@ -1,0 +1,124 @@
+{% extends 'base/base.html.twig' %}
+{% block content %}
+    <div id="main" class="col-sms-6 col-sm-8 col-md-9">
+        <div class="booking-section rwm-box">
+            <div class="alert small-box" style="display: none;"></div>
+            <div class="person-information">
+                <h2>Your Booking Information</h2>
+                {% if not roomIsAvailable %}
+                    <div class="alert alert-danger" role="alert">
+                        <h4>Room Unavailable!</h4>
+                        <p>Apparently you are trying to book a room within an unavailable period of time</p>
+                        <hr>
+                        <p class="mb-0">Please try to reconfigure your CheckIn and CheckOut dates or chose another room or hotel to book.</p>
+                    </div>
+                {% endif %}
+                {% if not checkIn or not checkOut %}
+                    <div class="alert alert-danger" role="alert">
+                        <h4>Invalid booking period!</h4>
+                        <p>Apparently you are trying to book a room within an unavailable period of time</p>
+                        <hr>
+                        <p class="mb-0">Please try to reconfigure your CheckIn and CheckOut dates or chose another room or hotel to book.</p>
+                    </div>
+                {% endif %}
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-12">
+                    {% if not checkIn or not checkOut or not roomIsAvailable %}
+                        <a href="{{ path('hotel_detailed', {'id' : room.hotel.id, '_fragment' : 'hotel-availability' }) }}" class="full-width btn-large btn btn-warning"><i class="soap-icon-chevron-left circle"></i> &nbsp; Configure booking details</a>
+                    {% else %}
+                        <h2>Please check the below information before confirming the booking</h2>
+                        <dl class="term-description">
+                            <dt>Hotel Name:</dt><dd>{{ room.hotel.name }}</dd>
+                            <dt>Room:</dt><dd>{{ room.title }}</dd>
+                            <dt>Maximum guests:</dt><dd>{{ room.maxGuests }}</dd>
+                            <dt>Booking checkin:</dt><dd>{{ checkIn }} 12:00 PM</dd>
+                            <dt>Booking checkout:</dt><dd>{{ realCheckOut }} 11:00 AM</dd>
+                            <dt>Nights:</dt><dd>{{ occupationDayCount }}</dd>
+                            <dt>Room price per night:</dt><dd>${{ room.price }}</dd>
+                            <dt>Total booking price:</dt><dd>${{ room.price * occupationDayCount }}</dd>
+                            <dt><hr /></dt><dd><hr /></dd>
+                            <dt>Address:</dt><dd>{{ room.hotel.address }}</dd>
+                            <dt>Town / City:</dt><dd>{{ room.hotel.city.name }}, {{ room.hotel.city.region.name }}</dd>
+                            <dt>Country:</dt><dd>{{ room.hotel.city.country.name }}</dd>
+                            <dt>Hotel Owner:</dt><dd>{{ room.hotel.partner.name }}</dd>
+                            <dt>Room description:</dt><dd>{{ room.subtitle }}</dd>
+                        </dl>
+                        <hr />
+                        <div class="form-group">
+                            <a href="{{ path('/') }}" class="full-width btn-large btn btn-success"><i class="soap-icon-check circle"></i> &nbsp; Confirm booking</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar col-sms-6 col-sm-4 col-md-3">
+        <div class="booking-details rwm-box">
+            <h4>Booking Details</h4>
+            <article class="image-box hotel listing-style1">
+                <figure class="clearfix">
+                    <a href="{{ path('hotel_detailed', {'id': room.hotel.id}) }}" class="hover-effect middle-block"><img class="middle-item" width="270" height="160" alt="" src="{{ asset(room.hotel.hotelPhotos.first.photoFilename) }}"></a>
+                    <div class="travel-title">
+                        <h5 class="box-title">{{ room.hotel.name }}<small>{{ room.hotel.city.name }} {{ room.hotel.city.country.name }}</small></h5>
+                        <a href="{{ path('hotel_detailed', {'id': room.hotel.id}) }}" class="button">EDIT</a>
+                    </div>
+                </figure>
+                <div class="details">
+                    <div class="feedback">
+                        <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="{{ room.hotel.overallRating|round }} stars"><span style="width: {{ room.hotel.overallRating *20 }}%;" class="five-stars"></span></div>
+                        <span class="review">{{ room.hotel.reviews|length }} reviews</span>
+                    </div>
+                    <div class="constant-column-3 timing clearfix">
+                        <div class="check-in">
+                            <label>Check in</label>
+                            <span>{{ checkIn }}<br />12 PM</span>
+                        </div>
+                        <div class="duration text-center">
+                            <i class="soap-icon-clock"></i>
+                            <span>{{ occupationDayCount}} Nights</span>
+                        </div>
+                        <div class="check-out">
+                            <label>Check out</label>
+                            <span>{{ realCheckOut }}<br />11 AM</span>
+                        </div>
+                    </div>
+                    <div class="guest">
+                        <small class="uppercase">{{ room.title}} for <span class="skin-color">{{ room.maxGuests }} Persons</span></small>
+                    </div>
+                </div>
+            </article>
+
+            <h4>Other Details</h4>
+            <dl class="other-details">
+                <dt class="feature">room Type:</dt><dd class="value">{{ room.title }}</dd>
+                <dt class="feature">per Room price:</dt><dd class="value">${{ room.price }}</dd>
+                <dt class="feature">{{ occupationDayCount }} night Stay:</dt><dd class="value">${{ occupationDayCount * room.price }}</dd>
+                <dt class="total-price">Total Price</dt><dd class="total-price-value">${{ occupationDayCount * room.price }}</dd>
+            </dl>
+        </div>
+
+        <div class="rwm-box contact-box">
+            <h4>Need Runaway With Me Help?</h4>
+            <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
+            <div class="col-sm-12 col-md-12">
+                <a href="{{ path('discover_contact') }}" class="btn btn-success full-width btn-large">Contact us</a>
+                <hr />
+            </div>
+            <address class="contact-details">
+                <span class="contact-phone"><i class="soap-icon-phone"></i> +40 727 856 620</span>
+                <br>
+                <a href="mailto:puiu_mihai.valentin@yahoo.com" class="contact-email">puiu_mihai.valentin@yahoo.com</a>
+            </address>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    tjq(document).ready(function() {
+
+    });
+    </script>
+{% endblock %}

@@ -7,9 +7,12 @@ namespace App\Controller;
 use App\Entity\Hotel;
 use App\Entity\HotelFacility;
 use App\Entity\HotelReview;
+use App\Entity\Room;
 use App\FormGenerator\HotelSearchFormGenerator;
 use App\FormGenerator\ReviewFormGenerator;
+use App\FormGenerator\SearchAvailableRoomsFormGenerator;
 use App\Repository\HotelRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +34,7 @@ class HotelController extends BaseController
         $requestURIWithoutSortNorOrder = $request->query->all();
         unset($requestURIWithoutSortNorOrder['sort']);
         unset($requestURIWithoutSortNorOrder['order']);
+        $requestURIWithoutSortNorOrder = $this->implodeRequestURI($requestURIWithoutSortNorOrder);
 
         $hotels = $hotelRepository->findHotelsByFilters(
             $request->query->all()[HotelSearchFormGenerator::NAME_FORM_FIELD] ?? '',
@@ -42,10 +46,12 @@ class HotelController extends BaseController
             $request->query->all()['order'] ?? 'asc'
         );
 
-        $checkInDate = !empty($request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD]) ? \DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD]) : null;
-        $checkOutDate = !empty($request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD]) ? \DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD]) : null;
+        $checkInDate = !empty($request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD]) ? DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD]) : null;
+        $checkOutDate = !empty($request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD]) ? DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD]) : null;
 
         $hotels = $this->filterHotelsByCheckDate($hotels, $checkInDate, $checkOutDate);
+
+        $requestURI = $this->implodeRequestURI($request->query->all());
 
         return $this->render('hotels/view_types/'.$viewType.'_view.html.twig',  [
             'viewType' => $viewType,
@@ -54,12 +60,14 @@ class HotelController extends BaseController
             'lowestPriceRoom' => Hotel::getLowestPriceRoomOfHotels($hotels),
             'highestPriceRoom' => Hotel::getHighestPriceRoomOfHotels($hotels),
             'searchForm' => $this->getSearchForm()->createView(),
-            'requestURI' => implode('&', $request->query->all()),
-            'requestURIWithoutSortNorOrder' => implode('&', $requestURIWithoutSortNorOrder),
+            'requestURI' => $requestURI,
+            'requestURIWithoutSortNorOrder' => $requestURIWithoutSortNorOrder,
             'minOverallRating' => $request->query->all()[HotelSearchFormGenerator::MIN_OVERALL_RATING_FORM_FIELD] ?? 0.0,
             'sort' => $request->query->all()['sort'] ?? 'name',
             'order' => $request->query->all()['order'] ?? 'asc',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'checkin' => $request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD] ?? null,
+            'checkout' =>$request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD] ?? null
         ]);
     }
 
@@ -73,7 +81,7 @@ class HotelController extends BaseController
      *
      * @return Response
      */
-    public function detailed(Hotel $hotel, Request $request, EntityManagerInterface $entityManager, ReviewFormGenerator $reviewFormGenerator)
+    public function detailed(Hotel $hotel, Request $request, EntityManagerInterface $entityManager, ReviewFormGenerator $reviewFormGenerator, SearchAvailableRoomsFormGenerator $availableRoomsFormGenerator)
     {
         try {
             $hotel->getHotelFacility();
@@ -89,33 +97,100 @@ class HotelController extends BaseController
             $hotel->setHotelFacility($facility);
         }
 
-        $form = $reviewFormGenerator->generateForm(new HotelReview())
+        $reviewForm = $reviewFormGenerator->generateForm(new HotelReview())
             ->setAction($this->generateUrl('hotel_detailed', ['id' => $hotel->getId()]))
             ->setMethod(Request::METHOD_POST)
             ->getForm();
 
-        $form->handleRequest($request);
+        $roomSearchForm = $availableRoomsFormGenerator->generateForm(null)
+            ->setAction($this->generateUrl('hotel_detailed', ['id' => $hotel->getId(), '_fragment' => 'hotel-availability']))
+            ->setMethod(Request::METHOD_GET)
+            ->getForm();
 
-        if($form->isSubmitted() && $form->isValid()) {
-            /** @var HotelReview $hotelReview */
-            $hotelReview = $form->getData();
-            $hotelReview->setHotel($hotel);
+        if($request->getMethod() == Request::METHOD_POST) {
+            $reviewForm->handleRequest($request);
 
-            $entityManager->persist($hotelReview);
-            $entityManager->flush();
+            if($reviewForm->isSubmitted() && $reviewForm->isValid()) {
+                /** @var HotelReview $hotelReview */
+                $hotelReview = $reviewForm->getData();
+                $hotelReview->setHotel($hotel);
+
+                $entityManager->persist($hotelReview);
+                $entityManager->flush();
+            }
         }
+
+        if($request->getMethod() == Request::METHOD_GET) {
+            $roomSearchForm->handleRequest($request);
+            if($roomSearchForm->isSubmitted() && $roomSearchForm->isValid()) {
+                $minGuests = $request->query->all()[SearchAvailableRoomsFormGenerator::FORM_NAME][SearchAvailableRoomsFormGenerator::GUESTS_NUMBER_FORM_FIELD] ?? 1;
+                $checkIn = $request->query->all()[SearchAvailableRoomsFormGenerator::FORM_NAME][SearchAvailableRoomsFormGenerator::DATE_FROM_FORM_FIELD] ?? null;
+                $checkOut = $request->query->all()[SearchAvailableRoomsFormGenerator::FORM_NAME][SearchAvailableRoomsFormGenerator::DATE_TO_FORM_FIELD] ?? null;
+            }
+        }
+
+        $checkIn = $checkIn ?? $request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD] ?? null;
+        $checkOut = $checkOut ?? $request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD] ?? null;
+        $minGuests = $minGuests ?? 1;
+
+        $availableRooms = $hotel->getAvailableRooms($checkIn, $checkOut, $minGuests);
 
         return $this->render('hotels/hotel_detailed.html.twig', [
             'subTitle' => $hotel->getName(),
             'hotel' => $hotel,
+            'rooms' => $availableRooms,
             'searchForm' => $this->getSearchForm()->createView(),
-            'reviewForm' => $form->createView(),
-            'user' => $this->getUser()
+            'reviewForm' => $reviewForm->createView(),
+            'roomSearchForm' => $roomSearchForm->createView(),
+            'user' => $this->getUser(),
+            'checkin' => $checkIn,
+            'checkout' => $checkOut
         ]);
 
     }
 
-    private function filterHotelsByCheckDate($hotels, \DateTime $checkInDate = null, \DateTime $checkOutDate = null)
+    /**
+     * @Route(path="hotel/book-a-room/{id}", name="book_a_room", requirements={"id"="\d+"})
+     *
+     * @param Room $room
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     */
+    public function bookRoomDetails(Room $room, Request $request, EntityManagerInterface $entityManager)
+    {
+        if(!empty($request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD])) {
+            $checkIn = DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD]) ?: null;
+        } else {
+            $checkIn = null;
+        }
+
+        if(!empty($request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD])) {
+            $checkOut = DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD]) ?: null;
+        } else {
+            $checkOut = null;
+        }
+
+        $formattedCheckIn = !empty($checkIn) ? $checkIn->format('m/d/Y') : null;
+        $formattedCheckOut = !empty($checkOut) ? $checkOut->format('m/d/Y') : null;
+
+        return $this->render('hotels/room-booking.html.twig', [
+            'subTitle' => 'Room Booking',
+            'user' => $this->getUser(),
+            'searchForm' => $this->getSearchForm()->createView(),
+            'room' => $room,
+            'realCheckOut' => $this->getRealCheckoutDate($checkOut),
+            'roomIsAvailable' => $room->roomIsAvailable($checkIn, $checkOut),
+            'occupationDayCount' => $this->getOccupationDayCount($checkIn, $checkOut),
+            'checkIn' => $formattedCheckIn,
+            'checkOut' => $formattedCheckOut
+        ]);
+    }
+
+
+
+    private function filterHotelsByCheckDate($hotels, DateTime $checkInDate = null, DateTime $checkOutDate = null)
     {
         $filteredHotels = [];
         if($checkInDate && $checkOutDate) {
@@ -128,5 +203,42 @@ class HotelController extends BaseController
             return $filteredHotels;
         }
         return $hotels;
+    }
+
+    private function implodeRequestURI($requestURI)
+    {
+        return implode('&', array_map(
+            function ($v, $k) {
+                if(is_array($v)){
+                    return $k.'[]='.implode('&'.$k.'[]=', $v);
+                }else{
+                    return $k.'='.$v;
+                }
+            },
+            $requestURI,
+            array_keys($requestURI)
+        ));
+    }
+
+    /**
+     * @param DateTime|null $checkIn
+     * @param DateTime|null $checkOut
+     *
+     * @return int
+     */
+    private function getOccupationDayCount(DateTime $checkIn = null, DateTime $checkOut = null)
+    {
+        if(!empty($checkIn) && !empty($checkOut)) {
+            return (int)$checkIn->diff($checkOut)->format('%a') + 1;
+        }
+            return 0;
+    }
+
+    private function getRealCheckoutDate(DateTime $checkOut = null)
+    {
+        if(!empty($checkOut)) {
+            return $checkOut->add(new \DateInterval('P1D'))->format('m/d/Y');
+        }
+        return null;
     }
 }

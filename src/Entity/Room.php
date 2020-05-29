@@ -173,18 +173,19 @@ class Room
     public function roomIsAvailable(\DateTime $checkInDate = null, \DateTime $checkOutDate = null): bool
     {
         $isAvailable = true;
-
-        /** @var RoomOccupation $occupation */
-        foreach($this->roomOccupations as $occupation) {
-            if($checkInDate >= $occupation->getStartDate()) {
-                if($checkInDate <= $occupation->getEndDate()) {
-                    $isAvailable = false;
+        if($checkInDate && $checkOutDate) {
+            /** @var RoomOccupation $occupation */
+            foreach($this->roomOccupations as $occupation) {
+                if($checkInDate >= $occupation->getStartDate()) {
+                    if($checkInDate <= $occupation->getEndDate()) {
+                        $isAvailable = false;
+                    }
                 }
-            }
 
-            if($checkInDate < $occupation->getStartDate()) {
-                if($checkOutDate > $occupation->getStartDate()) {
-                    $isAvailable = false;
+                if($checkInDate < $occupation->getStartDate()) {
+                    if($checkOutDate > $occupation->getStartDate()) {
+                        $isAvailable = false;
+                    }
                 }
             }
         }

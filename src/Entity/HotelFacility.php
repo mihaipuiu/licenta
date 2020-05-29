@@ -43,7 +43,7 @@ class HotelFacility
     protected bool $hasPool;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Hotel")
+     * @ORM\OneToOne(targetEntity="App\Entity\Hotel", inversedBy="hotelFacility")
      */
     protected Hotel $hotel;
 

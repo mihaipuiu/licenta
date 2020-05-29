@@ -26,10 +26,8 @@
                     </div>
                 </div>
                 <div id="map-tab" class="tab-pane fade">
-
                 </div>
                 <div id="steet-view-tab" class="tab-pane fade" style="height: 500px;">
-
                 </div>
                 <div id="calendar-tab" class="tab-pane fade">
                     <label>SELECT MONTH</label>
@@ -68,7 +66,6 @@
                 </div>
             </div>
         </div>
-
         <div id="hotel-features" class="tab-container">
             <ul class="tabs">
                 <li class="active"><a href="#hotel-description" data-toggle="tab">Description</a></li>
@@ -110,21 +107,21 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="hotel-availability">
-                    <form>
+                    {{ form_start(roomSearchForm) }}
                         <div class="update-search clearfix">
                             <div class="col-md-6">
-                                <h4 class="title">When</h4>
+                                <h4 class="title"><a id="checking_details">When</a></h4>
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label>CHECK IN</label>
+                                        <label class="visible-md visible-lg">Check In</label>
                                         <div class="datepicker-wrap">
-                                            <input type="text" name="date_from" placeholder="mm/dd/yy" class="input-text full-width" />
+                                            {{ form_row(roomSearchForm.date_from) }}
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label>CHECK OUT</label>
+                                        <label class="visible-md visible-lg">Check Out</label>
                                         <div class="datepicker-wrap">
-                                            <input type="text" name="date_to" placeholder="mm/dd/yy" class="input-text full-width" />
+                                            {{ form_row(roomSearchForm.date_to) }}
                                         </div>
                                     </div>
                                 </div>
@@ -133,15 +130,9 @@
                                 <h4 class="title">Who</h4>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <label>Persons</label>
+                                        <label class="visible-md visible-lg">Guests</label>
                                         <div class="selector">
-                                            <select class="full-width">
-                                                <option value="1">01</option>
-                                                <option value="2">02</option>
-                                                <option value="3">03</option>
-                                                <option value="4">04</option>
-                                                <option value="5">05</option>
-                                            </select>
+                                            {{ form_row(roomSearchForm.guests_number) }}
                                         </div>
                                     </div>
                                 </div>
@@ -151,18 +142,18 @@
                                 <label class="visible-md visible-lg">&nbsp;</label>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <button data-animation-duration="1" data-animation-type="bounce" class="full-width icon-check animated" type="submit">SEARCH NOW</button>
+                                        {{ form_row(roomSearchForm.search_now) }}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    {{ form_end(roomSearchForm) }}
                     <h2>Available Rooms</h2>
                     <div class="room-list listing-style3 hotel">
-                        {% for room in hotel.rooms %}
+                        {% for room in hotel.availableRooms(checkin, checkout) %}
                             <article class="box">
                                 <figure class="col-sm-4 col-md-3">
-                                    <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="230" height="160" src="https://placehold.it/230x160" alt=""></a>
+                                    <a class="hover-effect popup-gallery" href="{{ path('slideshow_popup') }}" title=""><img width="230" height="160" src="https://placehold.it/230x160" alt=""></a>
                                 </figure>
                                 <div class="details col-xs-12 col-sm-8 col-md-9">
                                     <div>
@@ -189,15 +180,13 @@
                                     <div>
                                         <p>{{ room.subtitle }}</p>
                                         <div class="action-section">
-                                            <a href="hotel-booking.html" title="" class="button btn-small full-width text-center">BOOK NOW</a>
+                                            <a href="{{ path('book_a_room', {'id': room.id}) }}?&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_FROM_FORM_FIELD') }}={{ checkin|url_encode }}&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_TO_FORM_FIELD') }}={{ checkout|url_encode }}" title="" class="button btn-small full-width text-center">BOOK NOW</a>
                                         </div>
                                     </div>
                                 </div>
                             </article>
                         {% endfor %}
-                        <a href="#" class="load-more button full-width btn-large fourty-space">LOAD MORE ROOMS</a>
                     </div>
-
                 </div>
                 <div class="tab-pane fade" id="hotel-reviews">
                     <div class="intro table-wrapper full-width hidden-table-sms">
@@ -300,7 +289,6 @@
 
                 </div>
             </div>
-
         </div>
     </div>
     <div class="sidebar col-md-3">
@@ -322,7 +310,6 @@
                 <a class="button yellow full-width uppercase btn-small">add to wishlist</a>
             </div>
         </article>
-
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -335,8 +322,8 @@
     </script>
     <script type="text/javascript">
         tjq(document).ready(function() {
+            abc();
             // init_write_review();
-
             tjq(".goto-writereview-pane").click(function(e) {
                 e.preventDefault();
                 tjq('#hotel-features .tabs a[href="#hotel-write-review"]').tab('show')
@@ -435,5 +422,12 @@
 
         //init write a review tab
 
+        var abc = function() {
+            var hash = window.location.hash.substr(1);
+            if(hash === 'hotel-availability') {
+                var checkInDetailsTag = tjq("#checking_details");
+                tjq('html,body').delay(1000).animate({scrollTop: checkInDetailsTag.offset().bottom},1000);
+            }
+        }
     </script>
 {% endblock %}

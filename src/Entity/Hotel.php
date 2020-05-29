@@ -72,7 +72,7 @@ class Hotel
     protected PersistentCollection $reviews;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\City", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", fetch="EAGER", inversedBy="hotels")
      */
     protected City $city;
 
@@ -568,5 +568,34 @@ class Hotel
     public function prePersist()
     {
         $this->overallRating = $this->getOverallRatingFromReviews();
+    }
+
+    /**
+     * @param DateTime|string|null $checkInDate
+     * @param DateTime|string|null $checkOutDate
+     * @param int $minGuests
+     * @return array
+     */
+    public function getAvailableRooms($checkInDate = null, $checkOutDate = null, int $minGuests = 1): array
+    {
+        $availableRooms = [];
+
+        if (is_string($checkInDate)) {
+            $checkInDate = \DateTime::createFromFormat('m/d/Y', $checkInDate) ?: null;
+
+        }
+
+        if (is_string($checkOutDate)) {
+            $checkOutDate = \DateTime::createFromFormat('m/d/Y', $checkOutDate)  ?: null;
+        }
+
+        /** @var Room $room */
+        foreach($this->getRooms() as $room) {
+            if($room->getMaxGuests() >= $minGuests && $room->roomIsAvailable($checkInDate, $checkOutDate)) {
+                $availableRooms[] = $room;
+            }
+        }
+
+        return $availableRooms;
     }
 }

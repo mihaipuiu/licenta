@@ -29,11 +29,15 @@
                         <p>{{ hotel.shortDescription }}</p>
                         <div>
                             <span class="price"><small>FROM</small>${{ hotel.lowestPriceRoom.price }}</span>
-                            <a class="button btn-small full-width text-center" title="" href="{{ path('hotel_detailed', {'id':hotel.id}) }}">SELECT</a>
+                            <a class="button btn-small full-width text-center" title="Check out this hotel!" href="{{ path('hotel_detailed', {'id':hotel.id}) }}?{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_FROM_FORM_FIELD') }}={{ checkin }}&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_TO_FORM_FIELD') }}={{ checkout }}">SELECT</a>
                         </div>
                     </div>
                 </div>
             </article>
         {% endfor %}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('components/flexslider/jquery.flexslider-min.js') }}"></script>
 {% endblock %}

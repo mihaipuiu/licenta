@@ -41,6 +41,6 @@ class FacebookController extends BaseController
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
-        return $this->redirectToRoute('index');
+        return $this->redirect($request->headers->get('referer'));
     }
 }

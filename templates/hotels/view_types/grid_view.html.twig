@@ -19,8 +19,8 @@
                             </div>
                             <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
                             <div class="action">
-                                <a class="button btn-small" href="{{ path('hotel_detailed', {'id': 1}) }}">SELECT</a>
-                                <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">VIEW ON MAP</a>
+                                <a class="button btn-small" href="{{ path('hotel_detailed', {'id':hotel.id}) }}?{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_FROM_FORM_FIELD') }}={{ checkin }}&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_TO_FORM_FIELD') }}={{ checkout }}">SELECT</a>
+                                <a class="button btn-small yellow popup-map" href="#" data-box="{{ hotel.coordinates }}">VIEW ON MAP</a>
                             </div>
                         </div>
                     </article>
@@ -28,4 +28,10 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/gmap3.min.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script type="text/javascript" src="{{ asset('components/flexslider/jquery.flexslider-min.js') }}"></script>
 {% endblock %}
