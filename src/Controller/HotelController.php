@@ -8,6 +8,7 @@ use App\Entity\Hotel;
 use App\Entity\HotelFacility;
 use App\Entity\HotelReview;
 use App\Entity\Room;
+use App\Entity\RoomOccupation;
 use App\FormGenerator\HotelSearchFormGenerator;
 use App\FormGenerator\ReviewFormGenerator;
 use App\FormGenerator\SearchAvailableRoomsFormGenerator;
@@ -188,7 +189,58 @@ class HotelController extends BaseController
         ]);
     }
 
+    /**
+     * @Route(path="hotel/confirm-book-a-room/{id}", name="confirm_book_a_room", requirements={"id"="\d+"})
+     *
+     * @param Room $room
+     * @param Request $request
+     */
+    public function confirmBooking(Room $room, Request $request, EntityManagerInterface $entityManager)
+    {
+        if(!empty($request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD])) {
+            $checkIn = DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_TO_FORM_FIELD]) ?: null;
+        } else {
+            $checkIn = null;
+        }
 
+        if(!empty($request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD])) {
+            $checkOut = DateTime::createFromFormat('m/d/Y', $request->query->all()[HotelSearchFormGenerator::DATE_FROM_FORM_FIELD]) ?: null;
+        } else {
+            $checkOut = null;
+        }
+
+        if(empty($checkIn) || empty($checkOut) || !$room->roomIsAvailable($checkIn, $checkOut) || !$this->getUser()) {
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $roomOccupation = new RoomOccupation();
+        $roomOccupation->setRoom($room);
+        $roomOccupation->setStartDate($checkIn);
+        $roomOccupation->setEndDate($checkOut);
+        $roomOccupation->setUser($this->getUser());
+
+        $entityManager->persist($roomOccupation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('booking-confirmed', ['id' => $roomOccupation->getId()]);
+    }
+
+    /**
+     * @Route(path="hotel/booking-confirmed/{id}", name="booking-confirmed", requirements={"id"="\d+"})
+     *
+     * @param RoomOccupation $roomOccupation
+     */
+    public function bookingConfirmed(RoomOccupation $roomOccupation)
+    {
+        return $this->render('hotels/booking-confirmed.html.twig', [
+            'subTitle' => 'Booking Confirmed',
+            'user' => $this->getUser(),
+            'searchForm' => $this->getSearchForm()->createView(),
+            'roomOccupation' => $roomOccupation,
+            'occupationDayCount' => $this->getOccupationDayCount($roomOccupation->getStartDate(), $roomOccupation->getEndDate()),
+            'realCheckOut' => $this->getRealCheckoutDate($roomOccupation->getEndDate()),
+        ]);
+    }
 
     private function filterHotelsByCheckDate($hotels, DateTime $checkInDate = null, DateTime $checkOutDate = null)
     {

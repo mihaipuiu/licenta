@@ -47,7 +47,7 @@
                         </dl>
                         <hr />
                         <div class="form-group">
-                            <a href="{{ path('/') }}" class="full-width btn-large btn btn-success"><i class="soap-icon-check circle"></i> &nbsp; Confirm booking</a>
+                            <a href="{{ path('confirm_book_a_room', {'id' : room.id }) }}?date_from={{ checkIn|url_encode }}&date_to={{ checkOut|url_encode }}" id="confirm_booking" class="full-width btn-large btn btn-success"><i class="soap-icon-check circle"></i> &nbsp; Confirm booking</a>
                         </div>
                     {% endif %}
                 </div>
@@ -117,8 +117,16 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-    tjq(document).ready(function() {
+        tjq(document).ready(function($) {
+            $("#confirm_booking").click(function(e) {
+                var userLoggedIn = {% if user %}true{% else %}false{% endif %};
+                if(!userLoggedIn) {
+                    e.preventDefault();
+                    tjq("#login-popup").click();
+                } else {
 
-    });
+                }
+            });
+        });
     </script>
 {% endblock %}

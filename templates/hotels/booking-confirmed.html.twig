@@ -1,0 +1,51 @@
+{% extends 'base/base.html.twig' %}
+{% block content %}
+    <div id="main" class="col-sm-8 col-md-9">
+        <div class="booking-information rwm-box">
+            <h2>Booking Confirmation</h2>
+            <hr />
+            <div class="booking-confirmation clearfix">
+                <i class="soap-icon-recommend icon circle"></i>
+                <div class="message">
+                    <h4 class="main-message">Thank You. Your Booking Order is Confirmed Now.</h4>
+                </div>
+            </div>
+            <hr />
+            <h2>Booking Information</h2>
+            <dl class="term-description">
+                <dt>Booking number:</dt><dd>#{{ roomOccupation.id }}</dd>
+                <dt>First name:</dt><dd>{{ roomOccupation.user.firstName }}</dd>
+                <dt>Last name:</dt><dd>{{ roomOccupation.user.lastName }}</dd>
+                <dt>E-mail address:</dt><dd>{{ roomOccupation.user.email }}</dd>
+                <dt><hr /></dt><dd><hr /></dd>
+                <dt>Hotel Name:</dt><dd>{{ roomOccupation.room.hotel.name }}</dd>
+                <dt>Room:</dt><dd>{{ roomOccupation.room.title }}</dd>
+                <dt>Maximum guests:</dt><dd>{{ roomOccupation.room.maxGuests }}</dd>
+                <dt>Booking checkin:</dt><dd>{{ roomOccupation.startDate|date("m/d/Y") }} 12:00 PM</dd>
+                <dt>Booking checkout:</dt><dd>{{ realCheckOut }} 11:00 AM</dd>
+                <dt>Booking confirmed:</dt><dd>{{ roomOccupation.bookDate|date("m/d/Y") }} 11:00 AM</dd>
+                <dt>Room price per night:</dt><dd>${{ roomOccupation.room.price }}</dd>
+                <dt>Total booking price:</dt><dd>${{ roomOccupation.room.price * occupationDayCount }}</dd>
+                <dt><hr /></dt><dd><hr /></dd>
+                <dt>Address:</dt><dd>{{ roomOccupation.room.hotel.address }}</dd>
+                <dt>Town / City:</dt><dd>{{ roomOccupation.room.hotel.city.name }}, {{ roomOccupation.room.hotel.city.region.name }}</dd>
+                <dt>Country:</dt><dd>{{ roomOccupation.room.hotel.city.country.name }}</dd>
+                <dt>Hotel Owner:</dt><dd>{{ roomOccupation.room.hotel.partner.name }}</dd>
+                <dt>Room description:</dt><dd>{{ roomOccupation.room.subtitle }}</dd>
+            </dl>
+            <hr />
+            <h2>Enjoy your stay</h2>
+        </div>
+    </div>
+    <div class="sidebar col-sm-4 col-md-3">
+    <div class="rwm-box contact-box">
+        <h4>Need Runaway With Me Help?</h4>
+        <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
+        <address class="contact-details">
+            <span class="contact-phone"><i class="soap-icon-phone"></i> +40 727 856 620</span>
+            <br>
+            <a href="mailto:puiu_mihai.valentin@yahoo.com" class="contact-email">puiu_mihai.valentin@yahoo.com</a>
+        </address>
+    </div>
+</div>
+{% endblock %}
