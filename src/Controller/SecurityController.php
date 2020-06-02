@@ -28,15 +28,11 @@ class SecurityController extends BaseController
 
         $loginForm->handleRequest($request);
 
-        $error = null;
-
-        if($loginForm->isSubmitted()) {
-            dd('de ce nu ajunge aici????');
-            //$error = $authenticationUtils->getLastAuthenticationError();
-        }
+        $lastError = $request->getSession()->get('auth_failed');
+        $request->getSession()->remove('auth_failed');
 
         return $this->render('security/login.html.twig', [
-            'error' => $error,
+            'error' => $lastError,
             'subTitle' => 'Login',
             'searchForm' => $this->getSearchForm()->createView(),
             'loginForm' => $loginForm->createView(),

@@ -19,6 +19,8 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week
                 path: /
+            form_login:
+                use_referer: true
             anonymous: lazy
             provider: app_user_provider
             guard:
