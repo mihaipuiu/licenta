@@ -49,15 +49,18 @@
                             </li>
                         </ul>
                     </nav>
-                    <ul class="quick-menu pull-right">
-                        {% if not user %}
-                        <li><a id="login-popup" href="#rwm-login" class="soap-popupbox">LOGIN</a></li>
-                        <li><a href="#rwm-signup" class="soap-popupbox">SIGNUP</a></li>
-                        {% else %}
-                            <li><a href="{{ path('user_account') }}">ACCOUNT</a></li>
-                            <li><a href="{{ path('app_logout') }}">LOGOUT</a></li>
-                        {% endif %}
-                    </ul>
+
+                    {% if app.request.attributes.get('_route') != 'app_login' %}
+                        <ul class="quick-menu pull-right">
+                            {% if not user %}
+                            <li><a id="login-popup" href="#rwm-login" class="soap-popupbox">LOGIN</a></li>
+                            <li><a href="#rwm-signup" class="soap-popupbox">SIGNUP</a></li>
+                            {% else %}
+                                <li><a href="{{ path('user_account') }}">ACCOUNT</a></li>
+                                <li><a href="{{ path('app_logout') }}">LOGOUT</a></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
 
                 </div>
             </div>
