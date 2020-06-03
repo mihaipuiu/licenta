@@ -23,7 +23,7 @@ class HotelReview
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="reviews")
      */
-    protected Hotel $hotel;
+    protected ?Hotel $hotel = null;
 
     /**
      * @ORM\Column(type="decimal", precision=2, scale=1)
@@ -103,7 +103,7 @@ class HotelReview
     /**
      * @return Hotel
      */
-    public function getHotel(): Hotel
+    public function getHotel(): ?Hotel
     {
         return $this->hotel;
     }
@@ -322,5 +322,9 @@ class HotelReview
     public function setCreated(DateTime $created): void
     {
         $this->created = $created;
+    }
+    public function __toString()
+    {
+        return "$this->id";
     }
 }

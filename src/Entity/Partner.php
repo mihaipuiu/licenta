@@ -5,8 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PartnerRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ApiResource()
@@ -26,22 +27,22 @@ class Partner
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected string $name;
+    protected string $name = '';
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected string $url;
+    protected string $url = '';
 
     /**
      * @ORM\Column(type="smallint", options={"default":1})
      */
-    protected int $status;
+    protected int $status = 1;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="partner", cascade={"persist", "remove", "merge"})
      */
-    protected PersistentCollection $hotels;
+    protected Collection $hotels;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
@@ -52,6 +53,7 @@ class Partner
     {
         $this->status = self::PARTNER_STATUS_ACTIVE;
         $this->created = new DateTime();
+        $this->hotels = new ArrayCollection();
     }
 
     /**
@@ -127,18 +129,23 @@ class Partner
     }
 
     /**
-     * @return PersistentCollection
+     * @return Collection
      */
-    public function getHotels(): PersistentCollection
+    public function getHotels(): Collection
     {
         return $this->hotels;
     }
 
     /**
-     * @param PersistentCollection $hotels
+     * @param Collection $hotels
      */
-    public function setHotels(PersistentCollection $hotels): void
+    public function setHotels(Collection $hotels): void
     {
         $this->hotels = $hotels;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

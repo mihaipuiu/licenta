@@ -22,32 +22,32 @@ class HotelFacility
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    protected bool $hasRestaurant;
+    protected bool $hasRestaurant = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    protected bool $hasFitness;
+    protected bool $hasFitness = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    protected bool $hasWifi;
+    protected bool $hasWifi = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    protected bool $hasTv;
+    protected bool $hasTv = false;
 
     /**
      * @ORM\Column(type="boolean", options={"default":true})
      */
-    protected bool $hasPool;
+    protected bool $hasPool = false;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Hotel", inversedBy="hotelFacility")
      */
-    protected Hotel $hotel;
+    protected ?Hotel $hotel = null;
 
     public function getId(): ?int
     {
@@ -137,7 +137,7 @@ class HotelFacility
     /**
      * @return Hotel
      */
-    public function getHotel(): Hotel
+    public function getHotel(): ?Hotel
     {
         return $this->hotel;
     }
@@ -148,5 +148,10 @@ class HotelFacility
     public function setHotel(Hotel $hotel): void
     {
         $this->hotel = $hotel;
+    }
+
+    public function __toString()
+    {
+        return "$this->id";
     }
 }

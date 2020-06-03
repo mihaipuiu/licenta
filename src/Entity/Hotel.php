@@ -7,7 +7,7 @@ use App\Repository\HotelRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ApiResource()
@@ -26,67 +26,67 @@ class Hotel
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected string $name;
+    protected ?string $name = '';
 
     /**
      * @ORM\Column(type="string", length=200)
      */
-    protected string $address;
+    protected ?string $address = '';
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected string $coordinates;
+    protected ?string $coordinates = '';
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected string $phone;
+    protected ?string $phone = '';
 
     /**
      * @ORM\Column(type="text")
      */
-    protected string $shortDescription;
+    protected ?string $shortDescription = '';
 
     /**
      * @ORM\Column(type="text")
      */
-    protected string $fullDescription;
+    protected ?string $fullDescription = '';
 
     /**
-     * @ORM\Column(type="decimal", precision=2, scale=1)
+     * @ORM\Column(type="decimal", precision=2, scale=1, options={"default":"0.00"})
      */
-    protected float $overallRating;
+    protected ?float $overallRating = null;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\HotelFacility", mappedBy="hotel", fetch="EAGER")
      */
-    protected HotelFacility $hotelFacility;
+    protected ?HotelFacility $hotelFacility = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="hotel", fetch="EAGER")
      */
-    protected PersistentCollection $rooms;
+    protected ?Collection $rooms;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\HotelReview", mappedBy="hotel", fetch="EAGER")
      */
-    protected PersistentCollection $reviews;
+    protected ?Collection $reviews;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\City", fetch="EAGER", inversedBy="hotels")
      */
-    protected City $city;
+    protected ?City $city = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Partner", cascade={"all"}, inversedBy="hotels", fetch="EAGER")
      */
-    protected Partner $partner;
+    protected ?Partner $partner = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\HotelPhoto", mappedBy="hotel", fetch="EAGER")
      */
-    protected PersistentCollection $hotelPhotos;
+    protected ?Collection $hotelPhotos;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default":"CURRENT_TIMESTAMP"})
@@ -96,6 +96,9 @@ class Hotel
     public function __construct()
     {
         $this->created = new DateTime();
+        $this->rooms = new ArrayCollection();
+        $this->hotelPhotos = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     /**
@@ -173,7 +176,7 @@ class Hotel
     /**
      * @return Partner
      */
-    public function getPartner(): Partner
+    public function getPartner(): ?Partner
     {
         return $this->partner;
     }
@@ -189,7 +192,7 @@ class Hotel
     /**
      * @return City
      */
-    public function getCity(): City
+    public function getCity(): ?City
     {
         return $this->city;
     }
@@ -253,7 +256,7 @@ class Hotel
     /**
      * @return HotelFacility
      */
-    public function getHotelFacility(): HotelFacility
+    public function getHotelFacility(): ?HotelFacility
     {
         return $this->hotelFacility;
     }
@@ -267,49 +270,49 @@ class Hotel
     }
 
     /**
-     * @return PersistentCollection<Room>
+     * @return Collection<Room>
      */
-    public function getRooms(): PersistentCollection
+    public function getRooms(): Collection
     {
         return $this->rooms;
     }
 
     /**
-     * @param PersistentCollection $rooms
+     * @param Collection $rooms
      */
-    public function setRooms(PersistentCollection $rooms): void
+    public function setRooms(Collection $rooms): void
     {
         $this->rooms = $rooms;
     }
 
     /**
-     * @return PersistentCollection
+     * @return Collection
      */
-    public function getReviews(): PersistentCollection
+    public function getReviews(): Collection
     {
         return $this->reviews;
     }
 
     /**
-     * @param PersistentCollection $reviews
+     * @param Collection $reviews
      */
-    public function setReviews(PersistentCollection $reviews): void
+    public function setReviews(Collection $reviews): void
     {
         $this->reviews = $reviews;
     }
 
     /**
-     * @return PersistentCollection
+     * @return Collection
      */
-    public function getHotelPhotos(): PersistentCollection
+    public function getHotelPhotos(): Collection
     {
         return $this->hotelPhotos;
     }
 
     /**
-     * @param PersistentCollection $hotelPhotos
+     * @param Collection $hotelPhotos
      */
-    public function setHotelPhotos(PersistentCollection $hotelPhotos): void
+    public function setHotelPhotos(Collection $hotelPhotos): void
     {
         $this->hotelPhotos = $hotelPhotos;
     }
@@ -332,7 +335,7 @@ class Hotel
     /**
      * @return float
      */
-    public function getOverallRating(): float
+    public function getOverallRating(): ?float
     {
         return $this->overallRating;
     }
@@ -599,5 +602,10 @@ class Hotel
         }
 
         return $availableRooms;
+    }
+
+    public function __toString()
+    {
+        return "$this->name";
     }
 }

@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
+        "easycorp/easyadmin-bundle": "^2.3",
         "knpuniversity/oauth2-client-bundle": "^2.1",
         "league/oauth2-facebook": "^2.0",
         "sensio/framework-extra-bundle": "^5.5",

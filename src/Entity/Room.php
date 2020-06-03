@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\RoomRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ApiResource()
@@ -23,37 +24,42 @@ class Room
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="rooms", fetch="EAGER")
      */
-    protected Hotel $hotel;
+    protected ?Hotel $hotel = null;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected string $title;
+    protected string $title = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    protected string $subtitle;
+    protected string $subtitle = '';
 
     /**
      * @ORM\Column(type="text")
      */
-    protected string $description;
+    protected string $description = '';
 
     /**
      * @ORM\Column(type="smallint")
      */
-    protected int $maxGuests;
+    protected int $maxGuests = 5;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected int $price;
+    protected int $price = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="room", fetch="EAGER")
      */
-    protected PersistentCollection $roomOccupations;
+    protected Collection $roomOccupations;
+
+    public function __construct()
+    {
+        $this->roomOccupations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,7 +69,7 @@ class Room
     /**
      * @return Hotel
      */
-    public function getHotel(): Hotel
+    public function getHotel(): ?Hotel
     {
         return $this->hotel;
     }
@@ -157,17 +163,17 @@ class Room
     }
 
     /**
-     * @return PersistentCollection
+     * @return Collection
      */
-    public function getRoomOccupations(): PersistentCollection
+    public function getRoomOccupations(): Collection
     {
         return $this->roomOccupations;
     }
 
     /**
-     * @param PersistentCollection $roomOccupations
+     * @param Collection $roomOccupations
      */
-    public function setRoomOccupations(PersistentCollection $roomOccupations): void
+    public function setRoomOccupations(Collection $roomOccupations): void
     {
         $this->roomOccupations = $roomOccupations;
     }
@@ -193,5 +199,10 @@ class Room
         }
 
         return $isAvailable;
+    }
+
+    public function __toString()
+    {
+        return "$this->title";
     }
 }

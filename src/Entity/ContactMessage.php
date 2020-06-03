@@ -18,7 +18,7 @@ class ContactMessage
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected ?int $id;
+    protected ?int $id = null;
 
     /**
      * @ORM\Column(type="text")
