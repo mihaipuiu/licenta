@@ -52,8 +52,8 @@
 
                     <ul class="quick-menu pull-right">
                         {% if not user %}
-                        <li><a href="/login">LOGIN</a></li>
-                        <li><a href="/signup">SIGNUP</a></li>
+                        <li><a href="{{ path('app_login') }}">LOGIN</a></li>
+                        <li><a href="{{ path('app_signup') }}">SIGNUP</a></li>
                         {% else %}
                             <li><a href="{{ path('user_account') }}">ACCOUNT</a></li>
                             <li><a href="{{ path('app_logout') }}">LOGOUT</a></li>
