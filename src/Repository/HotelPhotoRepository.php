@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method HotelPhoto[]    findAll()
  * @method HotelPhoto[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class HotelPicturesRepository extends ServiceEntityRepository
+class HotelPhotoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -5,8 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -72,7 +73,14 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RoomOccupation", mappedBy="user")
      */
-    protected PersistentCollection $roomOccupations;
+    protected ?Collection $roomOccupations;
+
+    public function __construct()
+    {
+        $this->created = new DateTime();
+        $this->updated = new DateTime();
+        $this->roomOccupations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -200,17 +208,17 @@ class User implements UserInterface
     }
 
     /**
-     * @return PersistentCollection
+     * @return Collection
      */
-    public function getRoomOccupations(): PersistentCollection
+    public function getRoomOccupations(): Collection
     {
         return $this->roomOccupations;
     }
 
     /**
-     * @param PersistentCollection $roomOccupations
+     * @param Collection $roomOccupations
      */
-    public function setRoomOccupations(PersistentCollection $roomOccupations): void
+    public function setRoomOccupations(Collection $roomOccupations): void
     {
         $this->roomOccupations = $roomOccupations;
     }
@@ -279,5 +287,10 @@ class User implements UserInterface
     public function preUpdate()
     {
         $this->updated = new DateTime();
+    }
+
+    public function __toString()
+    {
+        return "$this->id";
     }
 }

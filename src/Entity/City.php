@@ -6,7 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ApiResource()
@@ -44,7 +44,7 @@ class City
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Hotel", mappedBy="city", cascade={"persist", "remove", "merge"}, fetch="EAGER")
      */
-    protected PersistentCollection $hotels;
+    protected Collection $hotels;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -145,9 +145,9 @@ class City
     }
 
     /**
-     * @param PersistentCollection $hotels
+     * @param Collection $hotels
      */
-    public function setHotels(PersistentCollection $hotels): void
+    public function setHotels(Collection $hotels): void
     {
         $this->hotels = $hotels;
     }

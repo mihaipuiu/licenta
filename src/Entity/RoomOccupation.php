@@ -142,4 +142,9 @@ class RoomOccupation
     {
         return $this->startDate < new \DateTime();
     }
+
+    public function __toString()
+    {
+        return "$this->id";
+    }
 }

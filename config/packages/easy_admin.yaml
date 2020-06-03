@@ -1,0 +1,21 @@
+easy_admin:
+    entities:
+        # List the entity class name you want to manage
+        Users:
+            class: App\Entity\User
+        ContactMessage:
+            class: App\Entity\ContactMessage
+        Hotel:
+            class: App\Entity\Hotel
+        HotelFacility:
+            class: App\Entity\HotelFacility
+        HotelPhoto:
+            class: App\Entity\HotelPhoto
+        News:
+            class: App\Entity\News
+        Partner:
+            class: App\Entity\Partner
+        Room:
+            class: App\Entity\Room
+        RoomOccupation:
+            class: App\Entity\RoomOccupation

@@ -176,4 +176,19 @@ class UserController extends BaseController
 
         return $this->redirectToRoute('user_account', ['_fragment' => 'edit-account-details', 'success' => true, 'action' => 'edit-account-details']);
     }
+
+    /**
+     * @Route(path="user/account/vouchers", name="user_vouchers", methods={"GET"})
+     */
+    public function listVouchers()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->render('user/user_vouchers.html.twig', [
+            'subTitle' => 'My Vouchers',
+            'user' => $user,
+            'searchForm' => $this->getSearchForm()->createView(),
+        ]);
+    }
 }

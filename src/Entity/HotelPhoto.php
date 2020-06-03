@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass=HotelPicturesRepository::class)
+ * @ORM\Entity(repositoryClass=HotelPhotoRepository::class)
  */
 class HotelPhoto
 {
@@ -27,17 +27,17 @@ class HotelPhoto
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="hotelPhotos")
      */
-    protected Hotel $hotel;
+    protected ?Hotel $hotel = null;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    protected string $photoFilename;
+    protected string $photoFilename = '';
 
     /**
      * @return Hotel
      */
-    public function getHotel(): Hotel
+    public function getHotel(): ?Hotel
     {
         return $this->hotel;
     }
@@ -64,5 +64,10 @@ class HotelPhoto
     public function setPhotoFilename(string $photoFilename): void
     {
         $this->photoFilename = $photoFilename;
+    }
+
+    public function __toString()
+    {
+        return "$this->id";
     }
 }
