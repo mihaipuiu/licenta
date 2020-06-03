@@ -49,10 +49,11 @@
                             </li>
                         </ul>
                     </nav>
+
                     <ul class="quick-menu pull-right">
                         {% if not user %}
-                        <li><a id="login-popup" href="#rwm-login" class="soap-popupbox">LOGIN</a></li>
-                        <li><a href="#rwm-signup" class="soap-popupbox">SIGNUP</a></li>
+                        <li><a href="/login">LOGIN</a></li>
+                        <li><a href="/signup">SIGNUP</a></li>
                         {% else %}
                             <li><a href="{{ path('user_account') }}">ACCOUNT</a></li>
                             <li><a href="{{ path('app_logout') }}">LOGOUT</a></li>
@@ -111,76 +112,6 @@
                     </ul>
                 </nav>
             </div>
-            {% if not user %}
-            <div id="rwm-signup" class="rwm-signup-box rwm-box">
-                <div class="login-social">
-                    <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
-                </div>
-                <div class="seperator"><label>OR</label></div>
-                <div class="simple-signup">
-                    <div class="text-center signup-email-section">
-                        <a href="#" class="signup-email"><i class="soap-icon-letter"></i>Sign up with Email</a>
-                    </div>
-                    <p class="description">By signing up, I agree to Runaway With Me's Terms of Service, Privacy Policy, Guest Refund policy, and Host Guarantee Terms.</p>
-                </div>
-                <div class="email-signup">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="input-text full-width" placeholder="first name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="input-text full-width" placeholder="last name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="input-text full-width" placeholder="email address">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="input-text full-width" placeholder="password">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="input-text full-width" placeholder="confirm password">
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Tell me about Runaway With Me news
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <p class="description">By signing up, I agree to Runaway With Me's Terms of Service, Privacy Policy, Guest Refund Policy, and Host Guarantee Terms.</p>
-                        </div>
-                        <button type="submit" class="full-width btn-medium">SIGNUP</button>
-                    </form>
-                </div>
-                <div class="seperator"></div>
-                <p>Already a Runaway With Me member? <a href="#rwm-login" class="goto-login soap-popupbox">Login</a></p>
-            </div>
-            <div id="rwm-login" class="rwm-login-box rwm-box">
-                <div class="login-social">
-                    <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
-                </div>
-                <div class="seperator"><label>OR</label></div>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="input-text full-width" placeholder="email address">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="input-text full-width" placeholder="password">
-                    </div>
-                    <div class="form-group">
-                        <a href="#" class="forgot-password pull-right">Forgot password?</a>
-                        <div class="checkbox checkbox-inline">
-                            <label>
-                                <input type="checkbox"> Remember me
-                            </label>
-                        </div>
-                    </div>
-                </form>
-                <div class="seperator"></div>
-                <p>Don't have an account? <a href="#rwm-signup" class="goto-signup soap-popupbox">Sign up</a></p>
-            </div>
-            {% endif %}
         </header>
         <div class="page-title-container">
             <div class="container">

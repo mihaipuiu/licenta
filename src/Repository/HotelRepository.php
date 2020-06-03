@@ -44,11 +44,11 @@ class HotelRepository extends ServiceEntityRepository
     )
     {
         if(!in_array($sort, ['name', 'price', 'overallRating'])) {
-            throw new \Exception('Sorting error. Please insert a valid sort');
+            $sort = 'name';
         }
 
         if(!in_array($order, ['asc', 'desc'])) {
-            throw new \Exception('Ordering error. Please insert a valid order for sorting');
+            $order = 'asc';
         }
 
         $qb = $this->createQueryBuilder('h');

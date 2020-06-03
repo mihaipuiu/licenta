@@ -1,0 +1,26 @@
+{% extends 'base/base.html.twig' %}
+
+{% block content %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <div id="rwm-login" class="rwm-login-page rwm-box">
+        <div class="login-social">
+            <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
+        </div>
+        <div class="seperator"><label>Or login with email</label></div>
+
+        {{ form_start(loginForm) }}
+            <div class="form-group">
+                {{ form_row(loginForm.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(loginForm.password) }}
+            </div>
+        {{ form_end(loginForm) }}
+
+        <div class="seperator"></div>
+        <p>Don't have an account? <a href="/signup">Sign up</a></p>
+    </div>
+{% endblock %}
