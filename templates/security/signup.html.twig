@@ -1,34 +1,35 @@
 {% extends 'base/base.html.twig' %}
 
 {% block content %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
 
-        <div id="rwm-login" class="rwm-signup-page rwm-box">
-            <div class="login-social">
-                <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Signup with Facebook</a>
-            </div>
-            <div class="seperator"><label>Or signup with email</label></div>
-            <form>
-                <input type="hidden" name="token" value="{{ csrf_token('some-name') }}">
-                <div class="form-group">
-                    <input type="text" class="input-text full-width" placeholder="name">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="input-text full-width" placeholder="email address">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="input-text full-width" placeholder="password">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="input-text full-width" placeholder="retype password">
-                </div>
-                <button type="submit" class="full-width btn-medium">SIGNUP</button>
-            </form>
-            <div class="seperator"></div>
-            <p>Already have a user? <a href="/login">Login</a></p>
+    <div id="rwm-login" class="rwm-login-page rwm-box">
+        <div class="login-social">
+            <a href="{{ path('connect_facebook_start') }}" class="button login-facebook"><i class="soap-icon-facebook"></i>Signup with Facebook</a>
         </div>
-    </form>
+        <div class="seperator"><label>Or signup with email</label></div>
+
+        {{ form_start(signupForm) }}
+        <div class="form-group">
+            {{ form_row(signupForm.first_name) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(signupForm.last_name) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(signupForm.email) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(signupForm.password1) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(signupForm.password2) }}
+        </div>
+        {{ form_end(signupForm) }}
+
+        <div class="seperator"></div>
+        <p>Already have an account? <a href="{{ path('app_login') }}">Login</a></p>
+    </div>
 {% endblock %}
