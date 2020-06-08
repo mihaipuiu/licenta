@@ -116,12 +116,11 @@ class FacebookAuthenticator extends SocialAuthenticator
      * @param Request $request
      * @param TokenInterface $token
      * @param string $providerKey
-     * @return null|Response
+     * @return RedirectResponse
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        // on success, let the request continue
-        return null;
+        return new RedirectResponse('/');
     }
 
     /**
