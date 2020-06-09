@@ -93,6 +93,11 @@ class Hotel
      */
     protected DateTime $created;
 
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected int $views;
+
     public function __construct()
     {
         $this->created = new DateTime();
@@ -602,6 +607,11 @@ class Hotel
         }
 
         return $availableRooms;
+    }
+
+    public function incrementViews()
+    {
+        $this->views++;
     }
 
     public function __toString()

@@ -1,20 +1,20 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Hotel;
 use App\Entity\HotelFacility;
 use App\Entity\HotelReview;
 use App\Entity\Room;
 use App\Entity\RoomOccupation;
+use App\Exception\InvalidDataClassException;
 use App\FormGenerator\HotelSearchFormGenerator;
 use App\FormGenerator\ReviewFormGenerator;
 use App\FormGenerator\SearchAvailableRoomsFormGenerator;
 use App\Repository\HotelRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -80,10 +80,15 @@ class HotelController extends BaseController
      * @param EntityManagerInterface $entityManager
      * @param ReviewFormGenerator $reviewFormGenerator
      *
+     * @param SearchAvailableRoomsFormGenerator $availableRoomsFormGenerator
      * @return Response
+     * @throws InvalidDataClassException
      */
     public function detailed(Hotel $hotel, Request $request, EntityManagerInterface $entityManager, ReviewFormGenerator $reviewFormGenerator, SearchAvailableRoomsFormGenerator $availableRoomsFormGenerator)
     {
+        $hotel->incrementViews();
+        $entityManager->persist($hotel);
+
         try {
             $hotel->getHotelFacility();
         } catch (\Exception $e) {
@@ -94,7 +99,6 @@ class HotelController extends BaseController
             $facility->setHasRestaurant((bool)rand(0,1));
             $facility->setHasWifi((bool)rand(0,1));
             $entityManager->persist($facility);
-            $entityManager->flush();
             $hotel->setHotelFacility($facility);
         }
 
@@ -117,7 +121,6 @@ class HotelController extends BaseController
                 $hotelReview->setHotel($hotel);
 
                 $entityManager->persist($hotelReview);
-                $entityManager->flush();
             }
         }
 
@@ -136,6 +139,8 @@ class HotelController extends BaseController
 
         $availableRooms = $hotel->getAvailableRooms($checkIn, $checkOut, $minGuests);
 
+        $entityManager->flush();
+
         return $this->render('hotels/hotel_detailed.html.twig', [
             'subTitle' => $hotel->getName(),
             'hotel' => $hotel,
@@ -147,7 +152,6 @@ class HotelController extends BaseController
             'checkin' => $checkIn,
             'checkout' => $checkOut
         ]);
-
     }
 
     /**
@@ -194,6 +198,8 @@ class HotelController extends BaseController
      *
      * @param Room $room
      * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return RedirectResponse
      */
     public function confirmBooking(Room $room, Request $request, EntityManagerInterface $entityManager)
     {

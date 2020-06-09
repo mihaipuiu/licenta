@@ -91,4 +91,32 @@ class HotelRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function highestRatedHotels($maxResults = 4)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT h 
+            FROM App\Entity\Hotel h
+            INNER JOIN App\Entity\HotelReview hr
+            GROUP BY h.id
+            ORDER BY AVG(hr.overallRating) DESC
+        ');
+
+        return $query->setMaxResults($maxResults)->getResult();
+    }
+
+    public function mostViewedHotels($maxResults = 4)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT h 
+            FROM App\Entity\Hotel h
+            ORDER BY h.views DESC
+        ');
+
+        return $query->setMaxResults($maxResults)->getResult();
+    }
 }
