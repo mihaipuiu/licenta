@@ -89,6 +89,12 @@ class HotelController extends BaseController
         $hotel->incrementViews();
         $entityManager->persist($hotel);
 
+        $randomPhoto = '';
+        $photos = count($hotel->getHotelPhotos());
+        if ($photos) {
+            $randomPhoto = $hotel->getHotelPhotos()->get(rand(0, $photos - 1))->getPhotoFilename();
+        }
+
         try {
             $hotel->getHotelFacility();
         } catch (\Exception $e) {
@@ -150,7 +156,8 @@ class HotelController extends BaseController
             'roomSearchForm' => $roomSearchForm->createView(),
             'user' => $this->getUser(),
             'checkin' => $checkIn,
-            'checkout' => $checkOut
+            'checkout' => $checkOut,
+            'randomPhoto' => $randomPhoto
         ]);
     }
 
