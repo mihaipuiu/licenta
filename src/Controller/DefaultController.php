@@ -14,6 +14,7 @@ use App\Repository\HotelRepository;
 use App\Repository\PartnerRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -220,11 +221,14 @@ class DefaultController extends BaseController
     }
 
     /**
-     * @Route(path="slideshow/popup", name="slideshow_popup")
+     * @Route(path="slideshow/popup/{id}", name="slideshow_popup")
+     * @param Hotel $hotel
+     * @return Response
      */
-    public function slideshowPopup()
+    public function slideshowPopup(Hotel $hotel)
     {
-        return $this->render('slideshow/slideshow-popup.html.twig');
+        $photos = $hotel->getHotelPhotos();
+        return $this->render('slideshow/slideshow-popup.html.twig', ['photos' => $photos]);
     }
 
     /**

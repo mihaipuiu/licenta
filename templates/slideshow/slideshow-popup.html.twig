@@ -1,27 +1,14 @@
 <div class="photo-gallery style1" id="photo-gallery1" data-animation="slide" data-sync="#image-carousel1">
     <ul class="slides">
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
+        {% for photo in photos %}
+            <li><img src="/{{ photo.photoFilename }}" alt="" /></li>
+        {% endfor %}
     </ul>
 </div>
 <div class="image-carousel style1" id="image-carousel1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photo-gallery1">
     <ul class="slides">
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
-        <li><img src="{{ asset('images/404-style1.png') }}" alt="" /></li>
+        {% for photo in photos %}
+            <li><img src="/{{ photo.photoFilename }}" alt="" /></li>
+        {% endfor %}
     </ul>
 </div>

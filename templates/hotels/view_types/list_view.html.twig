@@ -4,12 +4,12 @@
         {% for hotel in hotels %}
             <article class="box">
                 <figure class="col-sm-5 col-md-4">
-                    <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="{{ asset(hotel.hotelPhotos.first.photoFilename) }}"></a>
+                    <a title="" href="{{ path('slideshow_popup', {'id': hotel.id}) }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="{{ asset(hotel.hotelPhotos.first.photoFilename) }}"></a>
                 </figure>
                 <div class="details col-sm-7 col-md-8">
                     <div>
                         <div>
-                            <h4 class="box-title">{{ hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ hotel.city.name }}, {{ hotel.city.country.name }}</small></h4>
+                            <h4 class="box-title"><a href="{{ path('hotel_detailed', {'id':hotel.id}) }}?{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_FROM_FORM_FIELD') }}={{ checkin }}&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_TO_FORM_FIELD') }}={{ checkout }}">{{ hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ hotel.city.name }}, {{ hotel.city.country.name }}</small></a></h4>
                             <div class="amenities">
                                 {% if hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle" title="WiFi"></i>{% endif %}
                                 {% if hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle" title="FITNESS"></i>{% endif %}

@@ -153,7 +153,7 @@
                         {% for room in hotel.availableRooms(checkin, checkout) %}
                             <article class="box">
                                 <figure class="col-sm-4 col-md-3">
-                                    <a class="hover-effect popup-gallery" href="{{ path('slideshow_popup') }}" title=""><img width="230" height="160" src="https://placehold.it/230x160" alt=""></a>
+                                    <a class="hover-effect popup-gallery" href="{{ path('slideshow_popup', {'id': hotel.id}) }}" title=""><img width="230" height="160" src="https://placehold.it/230x160" alt=""></a>
                                 </figure>
                                 <div class="details col-xs-12 col-sm-8 col-md-9">
                                     <div>

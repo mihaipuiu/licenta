@@ -6,11 +6,11 @@
             <div class="col-sms-6 col-sm-6 col-md-4">
                 <article class="box">
                     <figure>
-                        <a href="{{ path('slideshow_popup') }}" title="" class="hover-effect popup-gallery"><img src="{{ asset(hotel.hotelPhotos.first.photoFilename) }}" alt="" width="270" height="160" /></a>
+                        <a href="{{ path('slideshow_popup', {'id': hotel.id}) }}" title="" class="hover-effect popup-gallery"><img src="{{ asset(hotel.hotelPhotos.first.photoFilename) }}" alt="" width="270" height="160" /></a>
                     </figure>
                     <div class="details">
                         <a title="View all" href="{{ path('hotel_detailed', {'id':hotel.id}) }}?{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_FROM_FORM_FIELD') }}={{ checkin }}&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_TO_FORM_FIELD') }}={{ checkout }}" class="pull-right button uppercase">select</a>
-                        <h4 class="box-title">{{ hotel.name }}</h4>
+                        <h4 class="box-title"><a href="{{ path('hotel_detailed', {'id':hotel.id}) }}?{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_FROM_FORM_FIELD') }}={{ checkin }}&{{ constant('App\\FormGenerator\\HotelSearchFormGenerator::DATE_TO_FORM_FIELD') }}={{ checkout }}">{{ hotel.name }}</a></h4>
                         <label class="price-wrapper">
                             <span class="price-per-unit">from ${{ hotel.lowestPriceRoom.price }}</span>
                         </label>

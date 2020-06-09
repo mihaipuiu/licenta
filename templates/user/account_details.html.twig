@@ -44,7 +44,7 @@
                         {% for roomOccupation in roomOccupations %}
                             <article class="box">
                                 <figure class="col-sm-4 col-md-3">
-                                    <a title="" href="{{ path('slideshow_popup') }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="{{ asset(roomOccupation.room.hotel.hotelPhotos.first.photoFilename) }}"></a>
+                                    <a title="" href="{{ path('slideshow_popup', {'id': roomOccupation.room.hotel.id}) }}" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="{{ asset(roomOccupation.room.hotel.hotelPhotos.first.photoFilename) }}"></a>
                                 </figure>
                                 <div class="details col-sm-2 col-md-2">
                                     <h5>Starting: </h5><small>{{ roomOccupation.startDate|format_datetime }}</small>
@@ -57,7 +57,7 @@
                                 <div class="details col-sm-6 col-md-7">
                                     <div>
                                         <div>
-                                            <h4 class="box-title">{{ roomOccupation.room.hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ roomOccupation.room.hotel.city.name }}, {{ roomOccupation.room.hotel.city.country.name }}</small></h4>
+                                            <h4 class="box-title"><a href="{{ path('hotel_detailed', {'id':roomOccupation.room.hotel.id}) }}">{{ roomOccupation.room.hotel.name }}<small><i class="soap-icon-departure yellow-color"></i> {{ roomOccupation.room.hotel.city.name }}, {{ roomOccupation.room.hotel.city.country.name }}</small></a></h4>
                                             <div class="amenities">
                                                 {% if roomOccupation.room.hotel.hotelFacility.hasWifi %}<i class="soap-icon-wifi circle" title="WiFi"></i>{% endif %}
                                                 {% if roomOccupation.room.hotel.hotelFacility.hasFitness %}<i class="soap-icon-fitnessfacility circle" title="FITNESS"></i>{% endif %}
