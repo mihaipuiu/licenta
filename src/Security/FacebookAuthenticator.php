@@ -120,6 +120,16 @@ class FacebookAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $referer = $request->getSession()->get('referer');
+        if (!empty($referer)) {
+            $request->getSession()->remove('referer');
+            $referer = base64_decode($referer);
+
+            if (filter_var($referer, FILTER_VALIDATE_URL)) {
+                return new RedirectResponse($referer);
+            }
+        }
+
         return new RedirectResponse('/');
     }
 

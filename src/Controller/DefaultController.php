@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Repository\HotelRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,6 +35,20 @@ class DefaultController extends BaseController
     {
         $photos = $hotel->getHotelPhotos();
         return $this->render('slideshow/slideshow-popup.html.twig', ['photos' => $photos]);
+    }
+
+    /**
+     * @Route(path="store/referer", name="store_referer")
+     * @param Request $request
+     */
+    public function storeReferer(Request $request)
+    {
+        $q = $request->query->all();
+        if (!empty($q['referer'])) {
+            $this->get('session')->set('referer', $q['referer']);
+        }
+
+        return new Response();
     }
 
     /**

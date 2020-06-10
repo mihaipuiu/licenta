@@ -70,6 +70,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $referer = $request->getSession()->get('referer');
+        if (!empty($referer)) {
+            $request->getSession()->remove('referer');
+            $referer = base64_decode($referer);
+
+            if (filter_var($referer, FILTER_VALIDATE_URL)) {
+                return new RedirectResponse($referer);
+            }
+        }
+
         return new RedirectResponse('/');
     }
 

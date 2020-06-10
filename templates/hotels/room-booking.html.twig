@@ -122,9 +122,9 @@
                 var userLoggedIn = {% if user %}true{% else %}false{% endif %};
                 if(!userLoggedIn) {
                     e.preventDefault();
-                    tjq("#login-popup").click();
-                } else {
-
+                    tjq.get('/store/referer?referer=' + btoa(window.location.href), function(data) {
+                        window.location.href = '/login';
+                    });
                 }
             });
         });
